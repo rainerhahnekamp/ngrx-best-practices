@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "projects": {
+    "eternal": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/eternal",
+      "sourceRoot": "apps/eternal/src",
+      "prefix": "eternal",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/eternal",
+            "index": "apps/eternal/src/index.html",
+            "main": "apps/eternal/src/main.ts",
+            "polyfills": "apps/eternal/src/polyfills.ts",
+            "tsConfig": "apps/eternal/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/eternal/src/favicon.ico",
+              "apps/eternal/src/assets"
+            ],
+            "styles": ["apps/eternal/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/eternal/src/environments/environment.ts",
+                  "with": "apps/eternal/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "eternal:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "eternal:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "eternal:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/eternal/tsconfig.app.json",
+              "apps/eternal/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/eternal/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/eternal/jest.config.js",
+            "tsConfig": "apps/eternal/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/eternal/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "eternal-e2e": {
+      "root": "apps/eternal-e2e",
+      "sourceRoot": "apps/eternal-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/eternal-e2e/cypress.json",
+            "tsConfig": "apps/eternal-e2e/tsconfig.e2e.json",
+            "devServerTarget": "eternal:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "eternal:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/eternal-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/eternal-e2e/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "eternal"
+}

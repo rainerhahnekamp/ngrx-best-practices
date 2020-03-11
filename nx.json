@@ -1,0 +1,22 @@
+{
+  "npmScope": "eternal",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "projects": {
+    "eternal": {
+      "tags": []
+    },
+    "eternal-e2e": {
+      "tags": [],
+      "implicitDependencies": ["eternal"]
+    }
+  }
+}
