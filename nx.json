@@ -16,7 +16,9 @@
     },
     "eternal-e2e": {
       "tags": [],
-      "implicitDependencies": ["eternal"]
+      "implicitDependencies": [
+        "eternal"
+      ]
     }
   }
 }
