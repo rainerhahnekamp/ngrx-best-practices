@@ -1,0 +1,8 @@
+<p><a [routerLink]="['.', 0]">Add Customer</a></p>
+<ul *ngIf="customers$ | async as customers">
+  <li *ngFor="let customer of customers">
+    <a [routerLink]="['.', customer.id]">
+      {{ customer.firstname }} {{ customer.name }}</a
+    >
+  </li>
+</ul>

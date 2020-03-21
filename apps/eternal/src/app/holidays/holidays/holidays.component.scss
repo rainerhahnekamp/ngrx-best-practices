@@ -1,0 +1,10 @@
+div.container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  mat-card {
+    flex: 1 0 200px;
+    max-width: 400px;
+    margin: 2em;
+  }
+}
