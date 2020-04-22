@@ -34,7 +34,6 @@ export class CustomerComponent implements OnInit {
       formly.requiredSelect('country', 'Country', countries),
       formly.requiredDate('birthdate', 'Birthdate')
     ];
-    this.store.dispatch(CustomerActions.load());
     if (this.route.snapshot.data.mode === 'new') {
       this.customer$ = of({
         id: 0,

@@ -1,10 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap, tap, concatMap } from 'rxjs/operators';
+import {
+  map,
+  switchMap,
+  tap,
+  concatMap,
+  withLatestFrom,
+  filter
+} from 'rxjs/operators';
 import { Customer } from '../customer';
 import { CustomerActions } from './customer.actions';
 import { Router } from '@angular/router';
+import { CustomerAppState, LoadStatus } from './customer.reducer';
+import { of } from 'rxjs';
+import { fromCustomer } from './customer.selectors';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class CustomerEffects {
@@ -12,8 +23,22 @@ export class CustomerEffects {
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private store: Store<CustomerAppState>
   ) {}
+
+  getCustomer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CustomerActions.get),
+      concatMap(action =>
+        of(action).pipe(
+          withLatestFrom(this.store.select(fromCustomer.selectLoadStatus))
+        )
+      ),
+      filter(([action, loadStatus]) => loadStatus === LoadStatus.NOT_LOADED),
+      map(() => CustomerActions.load())
+    )
+  );
 
   loadCustomers$ = createEffect(() =>
     this.actions$.pipe(

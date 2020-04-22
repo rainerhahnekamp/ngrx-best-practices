@@ -4,7 +4,14 @@ import { CustomerActions } from './customer.actions';
 
 export const customerFeatureKey = 'Customer';
 
+export enum LoadStatus {
+  NOT_LOADED,
+  LOADING,
+  LOADED
+}
+
 export interface State {
+  loadStatus: LoadStatus;
   customers: Customer[];
 }
 
@@ -13,13 +20,19 @@ export interface CustomerAppState {
 }
 
 export const initialState: State = {
+  loadStatus: LoadStatus.NOT_LOADED,
   customers: []
 };
 
 const CustomerReducer = createReducer<State>(
   initialState,
+  on(CustomerActions.load, state => ({
+    ...state,
+    loadStatus: LoadStatus.LOADING
+  })),
   on(CustomerActions.loaded, (state, { customers }) => ({
     ...state,
+    loadStatus: LoadStatus.LOADED,
     customers
   })),
   on(CustomerActions.added, (state, { customers }) => ({

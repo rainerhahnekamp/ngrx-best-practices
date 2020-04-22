@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { Customer } from '../customer';
 
+const get = createAction('[Customer] Get');
 const load = createAction('[Customer] Load');
 const loaded = createAction(
   '[Customer] Loaded',
@@ -32,6 +33,7 @@ const removed = createAction(
 );
 
 export const CustomerActions = {
+  get,
   load,
   loaded,
   add,

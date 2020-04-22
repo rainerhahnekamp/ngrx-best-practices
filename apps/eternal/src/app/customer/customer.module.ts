@@ -17,6 +17,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { MockedHttpClient } from './mocked-http-client.service';
 import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
+import { DataGuard } from './data.guard';
 
 @NgModule({
   declarations: [CustomersComponent, CustomerComponent],
@@ -34,6 +35,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     RouterModule.forChild([
       {
         path: 'customer',
+        canActivate: [DataGuard],
         children: [
           {
             path: '',
