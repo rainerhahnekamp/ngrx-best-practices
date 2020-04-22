@@ -7,7 +7,7 @@ import { CustomerActions } from './customer.actions';
 
 @Injectable()
 export class CustomerEffects {
-  private baseUrl = 'http://www.angular.at/api/Customer';
+  private baseUrl = 'https://local.eternal.com/api/customer';
   constructor(private actions$: Actions, private http: HttpClient) {}
 
   loadCustomers$ = createEffect(() =>

@@ -1,0 +1,24 @@
+div.row {
+  overflow: auto;
+
+  &.header {
+    font-weight: bold;
+  }
+  > p {
+    float: left;
+    text-align: center;
+    margin: 0.5em 0;
+    &.edit {
+      width: 2em;
+    }
+    &.name {
+      width: 11em;
+    }
+    &.country {
+      width: 4em;
+    }
+    &.birthdate {
+      width: 8em;
+    }
+  }
+}

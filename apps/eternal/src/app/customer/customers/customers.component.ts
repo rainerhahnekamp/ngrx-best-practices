@@ -8,7 +8,8 @@ import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-customers',
-  templateUrl: './customers.component.html'
+  templateUrl: './customers.component.html',
+  styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
   customers$: Observable<Customer[]>;

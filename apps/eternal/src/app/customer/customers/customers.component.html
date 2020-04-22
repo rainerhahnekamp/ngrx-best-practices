@@ -1,8 +1,18 @@
-<p><a [routerLink]="['.', 0]">Add Customer</a></p>
-<ul *ngIf="customers$ | async as customers">
-  <li *ngFor="let customer of customers">
-    <a [routerLink]="['.', customer.id]">
-      {{ customer.firstname }} {{ customer.name }}</a
-    >
-  </li>
-</ul>
+<h2>Customers</h2>
+<p><a mat-raised-button [routerLink]="['.', 0]">Add Customer</a></p>
+<div *ngIf="customers$ | async as customers">
+  <div class="row header">
+    <p class="edit">&nbsp;</p>
+    <p class="name">Name</p>
+    <p class="country">Country</p>
+    <p class="birthdate">Date of Birth</p>
+  </div>
+  <div class="row" *ngFor="let customer of customers">
+    <p class="edit">
+      <a [routerLink]="['.', customer.id]"><mat-icon>edit</mat-icon></a>
+    </p>
+    <p class="name">{{ customer.firstname }} {{ customer.name }}</p>
+    <p class="country">{{ customer.country }}</p>
+    <p class="birthdate">{{ customer.birthdate | date }}</p>
+  </div>
+</div>
