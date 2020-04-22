@@ -1,0 +1,20 @@
+export const countries = [
+  ['AT', 'Austria'],
+  ['CA', 'Canada'],
+  ['CH', 'Switzerland'],
+  ['CN', 'China'],
+  ['CZ', 'Czechia'],
+  ['DE', 'Germany'],
+  ['DK', 'Denmark'],
+  ['ES', 'Spain'],
+  ['FR', 'France'],
+  ['HU', 'Hungary'],
+  ['IN', 'India'],
+  ['IT', 'Italy'],
+  ['NL', 'Netherlands'],
+  ['NO', 'Norway'],
+  ['RU', 'Russia'],
+  ['SE', 'Sweden'],
+  ['UK', 'United Kingdom'],
+  ['US', 'USA']
+].map(([value, label]) => ({ value, label }));

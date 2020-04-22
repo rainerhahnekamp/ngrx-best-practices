@@ -1,5 +1,9 @@
 <h2>Customers</h2>
-<p><a mat-raised-button [routerLink]="['.', 0]">Add Customer</a></p>
+<p>
+  <a mat-raised-button color="primary" [routerLink]="['.', 'new']"
+    >Add Customer</a
+  >
+</p>
 <div *ngIf="customers$ | async as customers">
   <div class="row header">
     <p class="edit">&nbsp;</p>

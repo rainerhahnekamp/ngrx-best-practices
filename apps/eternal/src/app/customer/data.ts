@@ -94,8 +94,8 @@ export const customers: Customer[] = [
   },
   {
     id: 13,
-    firstname: 'Estefania',
-    name: 'Sanchez',
+    firstname: 'Estefanía',
+    name: 'Sánchez',
     country: 'ES',
     birthdate: '1985-10-10'
   },
@@ -116,7 +116,7 @@ export const customers: Customer[] = [
   {
     id: 16,
     firstname: 'Jan',
-    name: 'Janacek',
+    name: 'Janáček',
     country: 'CZ',
     birthdate: '2002-01-02'
   },
@@ -136,7 +136,7 @@ export const customers: Customer[] = [
   },
   {
     id: 19,
-    firstname: 'Timea',
+    firstname: 'Timéa',
     name: 'Szabó',
     country: 'HU',
     birthdate: '1969-01-26'
@@ -150,7 +150,7 @@ export const customers: Customer[] = [
   },
   {
     id: 21,
-    firstname: 'Niels',
+    firstname: 'Bjørn',
     name: 'Larsson',
     country: 'DK',
     birthdate: '1964-11-11'

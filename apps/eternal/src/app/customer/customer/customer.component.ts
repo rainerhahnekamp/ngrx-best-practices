@@ -1,56 +1,71 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { Customer } from '../customer';
-import { Store } from '@ngrx/store';
-import { CustomerAppState } from '../+state/customer.reducer';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { FormlyFieldConfig } from '@ngx-formly/core';
+import { formly } from 'ngx-formly-helpers';
+import { Observable, of } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import { CustomerActions } from '../+state/customer.actions';
+import { CustomerAppState } from '../+state/customer.reducer';
 import { fromCustomer } from '../+state/customer.selectors';
-import { filter, first } from 'rxjs/operators';
+import { countries } from '../countries';
+import { Customer } from '../customer';
 
 @Component({
   selector: 'app-customer',
-  templateUrl: './customer.component.html'
+  templateUrl: './customer.component.html',
+  styleUrls: ['./customer.component.scss']
 })
 export class CustomerComponent implements OnInit {
-  formGroup: FormGroup;
-  customers$: Observable<Customer>;
-
+  formGroup = new FormGroup({});
+  customer$: Observable<Customer>;
+  fields: FormlyFieldConfig[];
   constructor(
     private store: Store<CustomerAppState>,
-    private route: ActivatedRoute,
-    private router: Router,
-    private fb: FormBuilder
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.formGroup = this.fb.group({
-      id: [0],
-      firstname: ['', Validators.required],
-      name: ['', Validators.required],
-      country: [''],
-      birthdate: []
-    });
+    this.fields = [
+      formly.requiredText('firstname', 'Firstname'),
+      formly.requiredText('name', 'Name'),
+      formly.requiredSelect('country', 'Country', countries),
+      formly.requiredDate('birthdate', 'Birthdate')
+    ];
     this.store.dispatch(CustomerActions.load());
-    this.store
-      .select(fromCustomer.selectById, Number(this.route.snapshot.params.id))
-      .pipe(
-        filter(customer => !!customer),
-        first()
-      )
-      .subscribe(customer => this.formGroup.setValue(customer));
+    if (this.route.snapshot.data.mode === 'new') {
+      this.customer$ = of({
+        id: 0,
+        firstname: '',
+        name: '',
+        country: null,
+        birthdate: null
+      });
+    } else {
+      this.customer$ = this.store
+        .select(fromCustomer.selectById, Number(this.route.snapshot.params.id))
+        .pipe(
+          filter(customer => !!customer),
+          map(customer => ({ ...customer }))
+        );
+    }
   }
 
-  submit() {
+  submit(customer: Customer) {
     if (this.formGroup.valid) {
-      const customer = this.formGroup.value as Customer;
       if (customer.id) {
         this.store.dispatch(CustomerActions.update({ customer }));
       } else {
         this.store.dispatch(CustomerActions.add({ customer }));
       }
-      this.router.navigateByUrl('/customer');
+    }
+  }
+
+  remove(customer: Customer) {
+    if (confirm(`Really delete ${customer}?`)) {
+      this.store.dispatch(CustomerActions.remove({ customer }));
     }
   }
 }

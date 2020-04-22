@@ -1,12 +1,14 @@
 div.main {
-  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: stretch;
+
   mat-toolbar {
     &.mat-primary {
-      background: linear-gradient(to right, #6dd5ed, #2193b0);
+      background: #2193b0;
     }
     a {
       text-decoration: none;

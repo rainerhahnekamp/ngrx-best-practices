@@ -22,13 +22,17 @@ const CustomerReducer = createReducer<State>(
     ...state,
     customers
   })),
-  on(CustomerActions.added, (state, { customer }) => ({
+  on(CustomerActions.added, (state, { customers }) => ({
     ...state,
-    customers: [...state.customers, customer]
+    customers
   })),
-  on(CustomerActions.updated, (state, { customer }) => ({
+  on(CustomerActions.updated, (state, { customers }) => ({
     ...state,
-    customers: [...state.customers.filter(p => p.id !== customer.id), customer]
+    customers
+  })),
+  on(CustomerActions.removed, (state, { customers }) => ({
+    ...state,
+    customers
   }))
 );
 
