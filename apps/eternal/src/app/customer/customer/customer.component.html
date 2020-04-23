@@ -1,8 +1,4 @@
-<form
-  [formGroup]="formGroup"
-  *ngIf="customer$ | async as customer"
-  (ngSubmit)="submit(customer)"
->
+<form [formGroup]="formGroup" (ngSubmit)="submit(customer)">
   <formly-form
     [form]="formGroup"
     [fields]="fields"
@@ -14,7 +10,7 @@
       mat-raised-button
       color="warn"
       type="button"
-      (click)="remove(customer)"
+      (click)="remove.emit(customer)"
     >
       Delete
     </button>

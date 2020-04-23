@@ -1,15 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { formly } from 'ngx-formly-helpers';
-import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { CustomerActions } from '../+state/customer.actions';
-import { CustomerAppState } from '../+state/customer.reducer';
-import { fromCustomer } from '../+state/customer.selectors';
+import { Observable } from 'rxjs';
 import { countries } from '../countries';
 import { Customer } from '../customer';
 
@@ -20,12 +13,11 @@ import { Customer } from '../customer';
 })
 export class CustomerComponent implements OnInit {
   formGroup = new FormGroup({});
-  customer$: Observable<Customer>;
+  @Input() customer: Customer;
+  @Output() save = new EventEmitter<Customer>();
+  @Output() remove = new EventEmitter<Customer>();
   fields: FormlyFieldConfig[];
-  constructor(
-    private store: Store<CustomerAppState>,
-    private route: ActivatedRoute
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     this.fields = [
@@ -34,37 +26,11 @@ export class CustomerComponent implements OnInit {
       formly.requiredSelect('country', 'Country', countries),
       formly.requiredDate('birthdate', 'Birthdate')
     ];
-    if (this.route.snapshot.data.mode === 'new') {
-      this.customer$ = of({
-        id: 0,
-        firstname: '',
-        name: '',
-        country: null,
-        birthdate: null
-      });
-    } else {
-      this.customer$ = this.store
-        .select(fromCustomer.selectById, Number(this.route.snapshot.params.id))
-        .pipe(
-          filter(customer => !!customer),
-          map(customer => ({ ...customer }))
-        );
-    }
   }
 
   submit(customer: Customer) {
     if (this.formGroup.valid) {
-      if (customer.id) {
-        this.store.dispatch(CustomerActions.update({ customer }));
-      } else {
-        this.store.dispatch(CustomerActions.add({ customer }));
-      }
-    }
-  }
-
-  remove(customer: Customer) {
-    if (confirm(`Really delete ${customer}?`)) {
-      this.store.dispatch(CustomerActions.remove({ customer }));
+      this.save.emit(customer);
     }
   }
 }

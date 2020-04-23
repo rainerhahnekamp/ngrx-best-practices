@@ -1,22 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { Customer } from '../customer';
-import { CustomerAppState } from '../+state/customer.reducer';
-import { CustomerActions } from '../+state/customer.actions';
-import { fromCustomer } from '../+state/customer.selectors';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss']
 })
-export class CustomersComponent implements OnInit {
-  customers$: Observable<Customer[]>;
+export class CustomersComponent {
+  @Input() customers: Customer[];
 
-  constructor(private store: Store<CustomerAppState>) {}
-
-  ngOnInit() {
-    this.customers$ = this.store.select(fromCustomer.selectAll);
-  }
+  constructor() {}
 }

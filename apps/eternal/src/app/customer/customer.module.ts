@@ -18,9 +18,18 @@ import { MockedHttpClient } from './mocked-http-client.service';
 import { RouterModule } from '@angular/router';
 import { MatNativeDateModule } from '@angular/material/core';
 import { DataGuard } from './data.guard';
+import { AddContainerComponent } from './add-container/add-container.component';
+import { EditContainerComponent } from './edit-container/edit-container.component';
+import { CustomersContainerComponent } from './customers-container/customers-container.component';
 
 @NgModule({
-  declarations: [CustomersComponent, CustomerComponent],
+  declarations: [
+    CustomersComponent,
+    CustomerComponent,
+    AddContainerComponent,
+    EditContainerComponent,
+    CustomersContainerComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -39,13 +48,12 @@ import { DataGuard } from './data.guard';
         children: [
           {
             path: '',
-            component: CustomersComponent
+            component: CustomersContainerComponent
           },
-          { path: 'new', component: CustomerComponent, data: { mode: 'new' } },
+          { path: 'new', component: AddContainerComponent },
           {
             path: ':id',
-            component: CustomerComponent,
-            data: { mode: 'edit' }
+            component: EditContainerComponent
           }
         ]
       }
