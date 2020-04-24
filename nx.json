@@ -12,13 +12,20 @@
   },
   "projects": {
     "eternal": {
-      "tags": []
+      "tags": ["type: app"]
     },
     "eternal-e2e": {
       "tags": [],
-      "implicitDependencies": [
-        "eternal"
-      ]
+      "implicitDependencies": ["eternal"]
+    },
+    "feature-customer": {
+      "tags": ["scope:customer", "type: feature"]
+    },
+    "data-customer": {
+      "tags": ["scope:customer", "type: data"]
+    },
+    "ui-customer": {
+      "tags": ["scope:customer", "type: ui"]
     }
   }
 }

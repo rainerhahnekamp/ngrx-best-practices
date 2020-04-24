@@ -10,20 +10,17 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "esnext",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@eternal/domain/customer": ["libs/domain/customer/index.ts"],
+      "@eternal/feature/customer": ["libs/feature/customer/src/index.ts"],
+      "@eternal/data/customer": ["libs/data/customer/src/index.ts"],
+      "@eternal/ui/customer": ["libs/ui/customer/src/index.ts"]
+    }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

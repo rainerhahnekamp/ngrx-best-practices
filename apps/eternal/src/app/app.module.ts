@@ -14,11 +14,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FormlyModule } from '@ngx-formly/core';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { CustomerModule } from './customer/customer.module';
 import { HolidaysModule } from './holidays/holidays.module';
 import { HomeComponent } from './home/home.component';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de-AT';
+import { CustomerModule } from '@eternal/feature/customer';
 
 registerLocaleData(localeDe, 'de-AT');
 

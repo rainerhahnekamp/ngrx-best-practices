@@ -86,10 +86,7 @@
               "apps/eternal/tsconfig.app.json",
               "apps/eternal/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/eternal/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/eternal/**"]
           }
         },
         "test": {
@@ -124,14 +121,97 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/eternal-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/eternal-e2e/**"
-            ]
+            "tsConfig": ["apps/eternal-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/eternal-e2e/**"]
           }
+        }
+      }
+    },
+    "feature-customer": {
+      "projectType": "library",
+      "root": "libs/feature/customer",
+      "sourceRoot": "libs/feature/customer/src",
+      "prefix": "eternal",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/feature/customer/tsconfig.lib.json",
+              "libs/feature/customer/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/feature/customer/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/feature/customer/jest.config.js",
+            "tsConfig": "libs/feature/customer/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/feature/customer/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "data-customer": {
+      "projectType": "library",
+      "root": "libs/data/customer",
+      "sourceRoot": "libs/data/customer/src",
+      "prefix": "eternal",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/data/customer/tsconfig.lib.json",
+              "libs/data/customer/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/data/customer/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/data/customer/jest.config.js",
+            "tsConfig": "libs/data/customer/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/data/customer/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "ui-customer": {
+      "projectType": "library",
+      "root": "libs/ui/customer",
+      "sourceRoot": "libs/ui/customer/src",
+      "prefix": "eternal",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/ui/customer/tsconfig.lib.json",
+              "libs/ui/customer/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/ui/customer/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/ui/customer/jest.config.js",
+            "tsConfig": "libs/ui/customer/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/ui/customer/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
         }
       }
     }
