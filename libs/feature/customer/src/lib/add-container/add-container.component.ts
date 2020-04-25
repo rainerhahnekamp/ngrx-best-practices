@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { CustomerAppState, CustomerActions } from '@eternal/data/customer';
+import { Component } from '@angular/core';
+import { CustomerStore } from '@eternal/data/customer';
 import { Customer } from '@eternal/domain/customer';
 
 @Component({
@@ -12,17 +11,12 @@ import { Customer } from '@eternal/domain/customer';
   `
 })
 export class AddContainerComponent {
-  public customer = {
-    id: 0,
-    firstname: '',
-    name: '',
-    country: null,
-    birthdate: null
-  };
-
-  constructor(private store: Store<CustomerAppState>) {}
+  customer: Customer;
+  constructor(public customerStore: CustomerStore) {
+    this.customer = this.customerStore.newCustomer();
+  }
 
   add(customer: Customer) {
-    this.store.dispatch(CustomerActions.add({ customer }));
+    this.customerStore.add(customer);
   }
 }

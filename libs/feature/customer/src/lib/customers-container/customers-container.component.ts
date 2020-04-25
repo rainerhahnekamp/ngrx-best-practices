@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { CustomerStore } from '@eternal/data/customer';
 import { Customer } from '@eternal/domain/customer';
-import { CustomerAppState, fromCustomer } from '@eternal/data/customer';
+import { Observable } from 'rxjs';
 
 @Component({
   template: `
@@ -14,9 +13,9 @@ import { CustomerAppState, fromCustomer } from '@eternal/data/customer';
 })
 export class CustomersContainerComponent implements OnInit {
   public customers$: Observable<Customer[]>;
-  constructor(private store: Store<CustomerAppState>) {}
+  constructor(private customerStore: CustomerStore) {}
 
   ngOnInit() {
-    this.customers$ = this.store.select(fromCustomer.selectAll);
+    this.customers$ = this.customerStore.customers$;
   }
 }

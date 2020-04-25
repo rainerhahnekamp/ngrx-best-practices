@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { CustomerStore } from '@eternal/data/customer';
 import { Customer } from '@eternal/domain/customer';
-import {
-  CustomerAppState,
-  fromCustomer,
-  CustomerActions
-} from '@eternal/data/customer';
+import { Observable } from 'rxjs';
 
 @Component({
   template: `
@@ -24,22 +18,21 @@ export class EditContainerComponent implements OnInit {
   customer$: Observable<Customer>;
   constructor(
     private route: ActivatedRoute,
-    private store: Store<CustomerAppState>
+    private customerStore: CustomerStore
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.params.id);
-    this.customer$ = this.store
-      .select(fromCustomer.selectById, id)
-      .pipe(map(customer => ({ ...customer })));
+    this.customer$ = this.customerStore.getById(id);
   }
 
   edit(customer: Customer) {
-    this.store.dispatch(CustomerActions.update({ customer }));
+    this.customerStore.update(customer);
   }
+
   remove(customer: Customer) {
     if (confirm(`Really delete ${customer}?`)) {
-      this.store.dispatch(CustomerActions.remove({ customer }));
+      this.customerStore.remove(customer);
     }
   }
 }
