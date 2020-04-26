@@ -44,112 +44,112 @@ export const customers: Customer[] = [
     birthdate: '1995-05-31'
   },
   {
-    id: 6,
+    id: 7,
     firstname: 'Samantha',
     name: 'Jones',
     country: 'US',
     birthdate: '2005-07-15'
   },
   {
-    id: 7,
+    id: 8,
     firstname: 'Renate',
     name: 'Hoffmann',
     country: 'DE',
     birthdate: '1987-11-15'
   },
   {
-    id: 8,
+    id: 9,
     firstname: 'Angelika',
     name: 'Hoffmann',
     country: 'DE',
     birthdate: '1987-11-15'
   },
   {
-    id: 9,
+    id: 10,
     firstname: 'Jean-Paul',
     name: 'Néro',
     country: 'FR',
     birthdate: '1955-09-21'
   },
   {
-    id: 10,
+    id: 11,
     firstname: 'Stefanie',
     name: 'Niederrein',
     country: 'AT',
     birthdate: '1997-03-12'
   },
   {
-    id: 11,
+    id: 12,
     firstname: 'Denise',
     name: 'Keller',
     country: 'CH',
     birthdate: '1998-07-01'
   },
   {
-    id: 12,
+    id: 13,
     firstname: 'Johan',
     name: 'Driekamp',
     country: 'NL',
     birthdate: '1958-09-12'
   },
   {
-    id: 13,
+    id: 14,
     firstname: 'Estefanía',
     name: 'Sánchez',
     country: 'ES',
     birthdate: '1985-10-10'
   },
   {
-    id: 14,
+    id: 15,
     firstname: 'John',
     name: 'Harrison',
     country: 'UK',
     birthdate: '1977-05-20'
   },
   {
-    id: 15,
+    id: 16,
     firstname: 'Helene',
     name: 'Ford',
     country: 'CA',
     birthdate: '1969-03-04'
   },
   {
-    id: 16,
+    id: 17,
     firstname: 'Jan',
     name: 'Janáček',
     country: 'CZ',
     birthdate: '2002-01-02'
   },
   {
-    id: 17,
+    id: 18,
     firstname: 'Knut',
     name: 'Eggen',
     country: 'NO',
     birthdate: '1999-07-17'
   },
   {
-    id: 18,
+    id: 19,
     firstname: 'Oskar',
     name: 'Sjögren',
     country: 'SE',
     birthdate: '1961-03-22'
   },
   {
-    id: 19,
+    id: 20,
     firstname: 'Timéa',
     name: 'Szabó',
     country: 'HU',
     birthdate: '1969-01-26'
   },
   {
-    id: 20,
+    id: 21,
     firstname: 'Latitia',
     name: 'Bellitissa',
     country: 'IT',
     birthdate: '2002-05-30'
   },
   {
-    id: 21,
+    id: 22,
     firstname: 'Bjørn',
     name: 'Larsson',
     country: 'DK',

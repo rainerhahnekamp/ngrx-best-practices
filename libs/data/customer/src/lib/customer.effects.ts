@@ -56,6 +56,29 @@ export class CustomerEffects {
     )
   );
 
+  getById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CustomerActions.getById),
+      concatMap(action =>
+        of(action).pipe(
+          withLatestFrom(this.store.select(fromCustomer.selectAll))
+        )
+      ),
+      filter(([{ id }, totalCustomers]) => !totalCustomers[id]),
+      map(([action]) => CustomerActions.loadById({ id: action.id }))
+    )
+  );
+
+  loadById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CustomerActions.loadById),
+      switchMap(action =>
+        this.http.get<Customer>(`${this.baseUrl}/${action.id}`)
+      ),
+      map(customer => CustomerActions.loadedById({ customer }))
+    )
+  );
+
   addCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.add),

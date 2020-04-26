@@ -4,10 +4,18 @@ import { Customer } from '@eternal/domain/customer';
 
 const selectCustomerState = createFeatureSelector<State>(customerFeatureKey);
 
-const selectAll = createSelector(selectCustomerState, state => state.customers);
+const selectCurrent = createSelector(selectCustomerState, state =>
+  state.currentCustomerIds.map(id => state.totalCustomers[id])
+);
 
-const selectById = createSelector(selectAll, (state: Customer[], id: number) =>
-  state.find(p => p.id === id)
+const selectAll = createSelector(
+  selectCustomerState,
+  state => state.totalCustomers
+);
+
+const selectById = createSelector(
+  selectAll,
+  (state: { [id: string]: Customer }, id: number) => state[id]
 );
 
 const isLoaded = createSelector(selectCustomerState, state => state.isLoaded);
@@ -18,8 +26,9 @@ const selectContext = createSelector(
 );
 
 export const fromCustomer = {
-  selectAll,
+  selectCurrent,
   selectById,
+  selectAll,
   isLoaded,
   selectContext
 };

@@ -1,13 +1,15 @@
 import { createReducer, Action, on } from '@ngrx/store';
 import { CustomerActions, Context } from './customer.actions';
 import { Customer } from '@eternal/domain/customer';
+import { fromPairs } from 'lodash';
 
 export const customerFeatureKey = 'Customer';
 
 export interface State {
   isLoaded: boolean;
   context: Context;
-  customers: Customer[];
+  currentCustomerIds: number[];
+  totalCustomers: { [id: string]: Customer };
 }
 
 export interface CustomerAppState {
@@ -17,7 +19,8 @@ export interface CustomerAppState {
 export const initialState: State = {
   isLoaded: false,
   context: null,
-  customers: []
+  currentCustomerIds: [],
+  totalCustomers: {}
 };
 
 const CustomerReducer = createReducer<State>(
@@ -30,7 +33,22 @@ const CustomerReducer = createReducer<State>(
   on(CustomerActions.loaded, (state, { customers }) => ({
     ...state,
     isLoaded: true,
-    customers
+    currentCustomerIds: customers.map(customer => customer.id),
+    totalCustomers: {
+      ...state.totalCustomers,
+      ...fromPairs(
+        customers
+          .filter(({ id }) => !state.totalCustomers[id])
+          .map(customer => [customer.id, customer])
+      )
+    }
+  })),
+  on(CustomerActions.loadedById, (state, { customer }) => ({
+    ...state,
+    totalCustomers: {
+      ...state.totalCustomers,
+      ...fromPairs([[customer.id, customer]])
+    }
   })),
   on(CustomerActions.added, (state, { customers }) => ({
     ...state,

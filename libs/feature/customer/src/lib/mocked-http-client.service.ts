@@ -3,7 +3,7 @@ import { sortBy } from 'lodash';
 import { Observable, of } from 'rxjs';
 import { customers as originalCustomers } from './data';
 import { Customer } from '@eternal/domain/customer';
-import { map, filter, count } from 'rxjs/operators';
+import { map, filter, count, timeout } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
 
 interface FilterOptions {
@@ -17,7 +17,19 @@ export class MockedHttpClient {
   private pageSize = 10;
   private customers = originalCustomers;
 
-  get(url: string, { params }: { params: HttpParams }): Observable<Customer[]> {
+  get(
+    url: string,
+    httpOptions: { params: HttpParams }
+  ): Observable<Customer[] | Customer> {
+    const idMatch = url.match(/(\d+)$/);
+    if (idMatch) {
+      const id = Number(idMatch[0]);
+      return of(this.customers.find(customer => customer.id === id)).pipe(
+        timeout(250)
+      );
+    }
+
+    const params = httpOptions.params;
     const page = Number(params.get('page'));
 
     return this.getCustomers().pipe(
@@ -41,7 +53,8 @@ export class MockedHttpClient {
           (page - 1) * this.pageSize,
           page * this.pageSize
         );
-      })
+      }),
+      timeout(250)
     );
   }
 

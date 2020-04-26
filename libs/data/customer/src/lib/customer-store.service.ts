@@ -18,7 +18,7 @@ export class CustomerStore {
 
   constructor(private store: Store<CustomerStore>) {
     this._customers$ = combineLatest([
-      this.store.select(fromCustomer.selectAll),
+      this.store.select(fromCustomer.selectCurrent),
       this.store.select(fromCustomer.isLoaded)
     ]).pipe(
       filter(([, isLoaded]) => isLoaded),
@@ -37,9 +37,11 @@ export class CustomerStore {
   }
 
   public getById(id: number) {
-    return this.store
-      .select(fromCustomer.selectById, id)
-      .pipe(map(customer => ({ ...customer })));
+    this.store.dispatch(CustomerActions.getById({ id }));
+    return this.store.select(fromCustomer.selectById, id).pipe(
+      filter(customer => !!customer),
+      map(customer => ({ ...customer }))
+    );
   }
 
   public get(context: Context) {

@@ -14,6 +14,13 @@ const loaded = createAction(
   props<{ customers: Customer[] }>()
 );
 
+const getById = createAction('[Customer] Get By Id', props<{ id: number }>());
+const loadById = createAction('[Customer] Load By Id', props<{ id: number }>());
+const loadedById = createAction(
+  '[Customer] Loaded By Id',
+  props<{ customer: Customer }>()
+);
+
 const add = createAction('[Customer] Add', props<{ customer: Customer }>());
 const added = createAction(
   '[Customer] Added',
@@ -42,6 +49,9 @@ export const CustomerActions = {
   get,
   load,
   loaded,
+  getById,
+  loadById,
+  loadedById,
   add,
   added,
   update,
@@ -52,6 +62,7 @@ export const CustomerActions = {
 
 export const PublicCustomerActions = {
   get,
+  loadById,
   add,
   update,
   remove
