@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { customerFeatureKey, State, LoadStatus } from './customer.reducer';
+import { customerFeatureKey, State } from './customer.reducer';
 import { Customer } from '@eternal/domain/customer';
 
 const selectCustomerState = createFeatureSelector<State>(customerFeatureKey);
@@ -10,19 +10,16 @@ const selectById = createSelector(selectAll, (state: Customer[], id: number) =>
   state.find(p => p.id === id)
 );
 
-const selectLoadStatus = createSelector(
-  selectCustomerState,
-  state => state.loadStatus
-);
+const isLoaded = createSelector(selectCustomerState, state => state.isLoaded);
 
-const isLoaded = createSelector(
-  selectLoadStatus,
-  loadStatus => loadStatus === LoadStatus.LOADED
+const selectContext = createSelector(
+  selectCustomerState,
+  state => state.context
 );
 
 export const fromCustomer = {
   selectAll,
   selectById,
-  selectLoadStatus,
-  isLoaded
+  isLoaded,
+  selectContext
 };

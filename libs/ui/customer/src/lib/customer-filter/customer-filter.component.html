@@ -1,0 +1,35 @@
+<div class="customers">
+  <h2>Customers</h2>
+  <p>
+    <a mat-raised-button color="primary" [routerLink]="['.', 'new']"
+      >Add Customer</a
+    >
+  </p>
+  <form [formGroup]="form">
+    <div class="filter">
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select formControlName="country">
+          <mat-option value="">All Countries</mat-option>
+          <mat-option
+            *ngFor="let country of countries"
+            [value]="country.value"
+            >{{ country.label }}</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+  <ng-content></ng-content>
+  <div class="paginator">
+    <mat-icon
+      [attr.disabled]="filter.page >= 0"
+      (click)="switchPage(filter.page - 1)"
+      >arrow_back</mat-icon
+    >
+    {{ filter.page }}
+    <mat-icon (click)="switchPage(filter.page + 1)">arrow_forward</mat-icon>
+  </div>
+</div>

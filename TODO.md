@@ -1,0 +1,2 @@
+- Fix double id of 6 in customers
+- Add unit and e2e tests

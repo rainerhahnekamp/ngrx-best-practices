@@ -2,27 +2,29 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Customer } from '@eternal/domain/customer';
 import { fromCustomer } from './customer.selectors';
-import { Observable } from 'rxjs';
-import { CustomerActions } from './customer.actions';
-import { map } from 'rxjs/operators';
+import { Observable, combineLatest } from 'rxjs';
+import { CustomerActions, Context } from './customer.actions';
+import { map, filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerStore {
-  private isGetDispatched = false;
+  private _customers$: Observable<Customer[]>;
 
   get customers$(): Observable<Customer[]> {
-    this.checkForGet();
-    return this.store.select(fromCustomer.selectAll);
+    return this._customers$;
   }
 
-  get isLoaded$(): Observable<boolean> {
-    this.checkForGet();
-    return this.store.select(fromCustomer.isLoaded);
+  constructor(private store: Store<CustomerStore>) {
+    this._customers$ = combineLatest([
+      this.store.select(fromCustomer.selectAll),
+      this.store.select(fromCustomer.isLoaded)
+    ]).pipe(
+      filter(([, isLoaded]) => isLoaded),
+      map(([customers]) => customers)
+    );
   }
-
-  constructor(private store: Store<CustomerStore>) {}
 
   public newCustomer(): Customer {
     return {
@@ -40,6 +42,10 @@ export class CustomerStore {
       .pipe(map(customer => ({ ...customer })));
   }
 
+  public get(context: Context) {
+    this.store.dispatch(CustomerActions.get({ context }));
+  }
+
   public add(customer: Customer) {
     this.store.dispatch(CustomerActions.add({ customer }));
   }
@@ -50,12 +56,5 @@ export class CustomerStore {
 
   public remove(customer: Customer) {
     this.store.dispatch(CustomerActions.remove({ customer }));
-  }
-
-  private checkForGet() {
-    if (!this.isGetDispatched) {
-      this.store.dispatch(CustomerActions.get());
-      this.isGetDispatched = true;
-    }
   }
 }

@@ -1,17 +1,12 @@
 import { createReducer, Action, on } from '@ngrx/store';
-import { CustomerActions } from './customer.actions';
+import { CustomerActions, Context } from './customer.actions';
 import { Customer } from '@eternal/domain/customer';
 
 export const customerFeatureKey = 'Customer';
 
-export enum LoadStatus {
-  NOT_LOADED,
-  LOADING,
-  LOADED
-}
-
 export interface State {
-  loadStatus: LoadStatus;
+  isLoaded: boolean;
+  context: Context;
   customers: Customer[];
 }
 
@@ -20,19 +15,21 @@ export interface CustomerAppState {
 }
 
 export const initialState: State = {
-  loadStatus: LoadStatus.NOT_LOADED,
+  isLoaded: false,
+  context: null,
   customers: []
 };
 
 const CustomerReducer = createReducer<State>(
   initialState,
-  on(CustomerActions.load, state => ({
+  on(CustomerActions.load, (state, { context }) => ({
     ...state,
-    loadStatus: LoadStatus.LOADING
+    isLoaded: false,
+    context
   })),
   on(CustomerActions.loaded, (state, { customers }) => ({
     ...state,
-    loadStatus: LoadStatus.LOADED,
+    isLoaded: true,
     customers
   })),
   on(CustomerActions.added, (state, { customers }) => ({

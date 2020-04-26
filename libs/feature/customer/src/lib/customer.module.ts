@@ -6,7 +6,6 @@ import { DataCustomerModule } from '@eternal/data/customer';
 import { UiCustomerModule } from '@eternal/ui/customer';
 import { AddContainerComponent } from './add-container/add-container.component';
 import { CustomersContainerComponent } from './customers-container/customers-container.component';
-import { DataGuard } from './data.guard';
 import { EditContainerComponent } from './edit-container/edit-container.component';
 import { MockedHttpClient } from './mocked-http-client.service';
 
@@ -24,7 +23,6 @@ import { MockedHttpClient } from './mocked-http-client.service';
     RouterModule.forChild([
       {
         path: 'customer',
-        canActivate: [DataGuard],
         children: [
           {
             path: '',

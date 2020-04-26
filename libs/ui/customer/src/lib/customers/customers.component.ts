@@ -8,6 +8,4 @@ import { Customer } from '@eternal/domain/customer';
 })
 export class CustomersComponent {
   @Input() customers: Customer[];
-
-  constructor() {}
 }

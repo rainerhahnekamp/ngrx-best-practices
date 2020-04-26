@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect, ofType, act } from '@ngrx/effects';
 import {
   map,
   switchMap,
@@ -11,11 +11,12 @@ import {
 } from 'rxjs/operators';
 import { CustomerActions } from './customer.actions';
 import { Router } from '@angular/router';
-import { CustomerAppState, LoadStatus } from './customer.reducer';
+import { CustomerAppState } from './customer.reducer';
 import { of } from 'rxjs';
 import { fromCustomer } from './customer.selectors';
 import { Store } from '@ngrx/store';
 import { Customer } from '@eternal/domain/customer';
+import { isEqual } from 'lodash';
 
 @Injectable()
 export class CustomerEffects {
@@ -32,18 +33,25 @@ export class CustomerEffects {
       ofType(CustomerActions.get),
       concatMap(action =>
         of(action).pipe(
-          withLatestFrom(this.store.select(fromCustomer.selectLoadStatus))
+          withLatestFrom(this.store.select(fromCustomer.selectContext))
         )
       ),
-      filter(([action, loadStatus]) => loadStatus === LoadStatus.NOT_LOADED),
-      map(() => CustomerActions.load())
+      filter(([action, context]) => !isEqual(context, action.context)),
+      map(([action]) => CustomerActions.load({ context: action.context }))
     )
   );
 
   loadCustomers$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.load),
-      switchMap(() => this.http.get<Customer[]>(this.baseUrl)),
+      switchMap(action =>
+        this.http.get<Customer[]>(this.baseUrl, {
+          params: new HttpParams()
+            .set('page', '' + action.context.page)
+            .set('name', action.context.name)
+            .set('country', action.context.country)
+        })
+      ),
       map(customers => CustomerActions.loaded({ customers }))
     )
   );

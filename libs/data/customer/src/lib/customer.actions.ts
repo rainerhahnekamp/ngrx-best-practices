@@ -1,8 +1,14 @@
 import { createAction, props } from '@ngrx/store';
 import { Customer } from '@eternal/domain/customer';
 
-const get = createAction('[Customer] Get');
-const load = createAction('[Customer] Load');
+export interface Context {
+  page: number;
+  name?: string;
+  country?: string;
+}
+
+const get = createAction('[Customer] Get', props<{ context: Context }>());
+const load = createAction('[Customer] Load', props<{ context: Context }>());
 const loaded = createAction(
   '[Customer] Loaded',
   props<{ customers: Customer[] }>()

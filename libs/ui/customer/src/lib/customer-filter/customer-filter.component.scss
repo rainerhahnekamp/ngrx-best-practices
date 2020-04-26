@@ -1,0 +1,19 @@
+div.customers {
+  width: 450px;
+  .filter {
+    display: flex;
+    > :last-child {
+      margin-left: 2em;
+    }
+  }
+
+  .paginator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    mat-icon {
+      cursor: pointer;
+      padding: 0 1em;
+    }
+  }
+}

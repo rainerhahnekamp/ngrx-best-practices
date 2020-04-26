@@ -3,13 +3,46 @@ import { sortBy } from 'lodash';
 import { Observable, of } from 'rxjs';
 import { customers as originalCustomers } from './data';
 import { Customer } from '@eternal/domain/customer';
+import { map, filter, count } from 'rxjs/operators';
+import { HttpParams } from '@angular/common/http';
+
+interface FilterOptions {
+  name: string;
+  country: string;
+  page: string;
+}
 
 @Injectable()
 export class MockedHttpClient {
+  private pageSize = 10;
   private customers = originalCustomers;
 
-  get(url: string): Observable<Customer[]> {
-    return this.getCustomers();
+  get(url: string, { params }: { params: HttpParams }): Observable<Customer[]> {
+    const page = Number(params.get('page'));
+
+    return this.getCustomers().pipe(
+      map(customers => {
+        const name = params.get('name');
+        if (name) {
+          const regex = new RegExp(name, 'i');
+          customers = customers.filter(customer =>
+            (customer.name + customer.firstname).match(regex)
+          );
+        }
+
+        const country = params.get('country');
+        if (country) {
+          customers = customers.filter(
+            customer => customer.country === country
+          );
+        }
+
+        return customers.slice(
+          (page - 1) * this.pageSize,
+          page * this.pageSize
+        );
+      })
+    );
   }
 
   post(url: string, customer: Customer): Observable<Customer[]> {

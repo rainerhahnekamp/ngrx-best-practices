@@ -11,21 +11,32 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CustomerFilterComponent } from './customer-filter/customer-filter.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [CustomersComponent, CustomerComponent],
+  declarations: [
+    CustomersComponent,
+    CustomerComponent,
+    CustomerFilterComponent
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild([]),
     ReactiveFormsModule,
     MatIconModule,
+    MatInputModule,
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatFormFieldModule,
+    MatSelectModule,
     FormlyModule.forChild(),
     FormlyMaterialModule,
     FormlyMatDatepickerModule
   ],
-  exports: [CustomersComponent, CustomerComponent]
+  exports: [CustomersComponent, CustomerComponent, CustomerFilterComponent]
 })
 export class UiCustomerModule {}
