@@ -5,6 +5,16 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
 import { formly } from 'ngx-formly-helpers';
 import { countries } from '../countries';
 
+interface Booking {
+  id: number;
+  name: string;
+  cancelStatus: 'none' | 'cancellable' | 'notCancellable';
+}
+
+export interface CustomerViewModel extends Customer {
+  bookings: Booking[];
+}
+
 @Component({
   selector: 'eternal-customer',
   templateUrl: './customer.component.html',
@@ -12,7 +22,7 @@ import { countries } from '../countries';
 })
 export class CustomerComponent implements OnInit {
   formGroup = new FormGroup({});
-  @Input() customer: Customer;
+  @Input() customer: CustomerViewModel;
   @Output() save = new EventEmitter<Customer>();
   @Output() remove = new EventEmitter<Customer>();
   fields: FormlyFieldConfig[];
@@ -23,7 +33,8 @@ export class CustomerComponent implements OnInit {
       formly.requiredText('firstname', 'Firstname'),
       formly.requiredText('name', 'Name'),
       formly.requiredSelect('country', 'Country', countries),
-      formly.requiredDate('birthdate', 'Birthdate')
+      formly.requiredDate('birthdate', 'Birthdate'),
+      formly.hidden('bookings')
     ];
   }
 

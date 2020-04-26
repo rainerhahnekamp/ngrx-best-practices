@@ -1,19 +1,40 @@
-<form [formGroup]="formGroup" (ngSubmit)="submit(customer)">
-  <formly-form
-    [form]="formGroup"
-    [fields]="fields"
-    [model]="customer"
-  ></formly-form>
-  <div class="buttons">
-    <a mat-raised-button [routerLink]="['..']">Back</a>
-    <button
-      mat-raised-button
-      color="warn"
-      type="button"
-      (click)="remove.emit(customer)"
-    >
-      Delete
-    </button>
-    <button mat-raised-button color="primary" type="submit">Save</button>
+<div class="customer">
+  <form [formGroup]="formGroup" (ngSubmit)="submit(customer)">
+    <h3>Details</h3>
+    <formly-form
+      [form]="formGroup"
+      [fields]="fields"
+      [model]="customer"
+    ></formly-form>
+
+    <div class="buttons">
+      <a mat-raised-button [routerLink]="['..']">Back</a>
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="remove.emit(customer)"
+      >
+        Delete
+      </button>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </div>
+  </form>
+  <div class="bookings">
+    <h3>Bookings</h3>
+    <mat-card *ngFor="let booking of customer.bookings">
+      <mat-card-header>
+        <mat-card-title>{{ booking.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          *ngIf="booking.cancelStatus !== 'none'"
+          [disabled]="booking.cancelStatus === 'notCancellable'"
+        >
+          Cancel
+        </button>
+      </mat-card-actions>
+    </mat-card>
   </div>
-</form>
+</div>

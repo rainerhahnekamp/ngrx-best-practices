@@ -19,13 +19,19 @@
       "implicitDependencies": ["eternal"]
     },
     "feature-customer": {
-      "tags": ["scope:customer", "type: feature"]
+      "tags": ["scope: customer", "type: feature"]
     },
     "data-customer": {
-      "tags": ["scope:customer", "type: data"]
+      "tags": ["scope: customer", "type: data"]
     },
     "ui-customer": {
-      "tags": ["scope:customer", "type: ui"]
+      "tags": ["scope: customer", "type: ui"]
+    },
+    "data-booking": {
+      "tags": ["scope: booking", "type: data"]
+    },
+    "data-user": {
+      "tags": ["scope: user", "type: data"]
     }
   }
 }

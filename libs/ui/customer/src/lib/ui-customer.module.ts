@@ -15,6 +15,7 @@ import { CustomerFilterComponent } from './customer-filter/customer-filter.compo
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MatSelectModule } from '@angular/material/select';
     CommonModule,
     RouterModule.forChild([]),
     ReactiveFormsModule,
+    MatCardModule,
     MatIconModule,
     MatInputModule,
     MatButtonModule,

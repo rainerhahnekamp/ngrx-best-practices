@@ -214,6 +214,62 @@
           "styleext": "scss"
         }
       }
+    },
+    "data-booking": {
+      "projectType": "library",
+      "root": "libs/data/booking",
+      "sourceRoot": "libs/data/booking/src",
+      "prefix": "eternal",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/data/booking/tsconfig.lib.json",
+              "libs/data/booking/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/data/booking/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/data/booking/jest.config.js",
+            "tsConfig": "libs/data/booking/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/data/booking/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "data-user": {
+      "projectType": "library",
+      "root": "libs/data/user",
+      "sourceRoot": "libs/data/user/src",
+      "prefix": "eternal",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/data/user/tsconfig.lib.json",
+              "libs/data/user/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/data/user/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/data/user/jest.config.js",
+            "tsConfig": "libs/data/user/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/data/user/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "cli": {

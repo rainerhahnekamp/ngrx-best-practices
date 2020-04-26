@@ -8,6 +8,8 @@ import { AddContainerComponent } from './add-container/add-container.component';
 import { CustomersContainerComponent } from './customers-container/customers-container.component';
 import { EditContainerComponent } from './edit-container/edit-container.component';
 import { MockedHttpClient } from './mocked-http-client.service';
+import { DataUserModule } from '@eternal/data/user';
+import { DataBookingModule } from '@eternal/data/booking';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { MockedHttpClient } from './mocked-http-client.service';
   imports: [
     CommonModule,
     DataCustomerModule,
+    DataUserModule,
+    DataBookingModule,
     UiCustomerModule,
     HttpClientModule,
     RouterModule.forChild([
