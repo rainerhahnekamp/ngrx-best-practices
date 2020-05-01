@@ -4,18 +4,19 @@ import { Observable, of } from 'rxjs';
 import { Customer } from './customer';
 import { customers as originalCustomers } from './data';
 import { sortBy } from 'lodash';
+import { timeout, tap, delay } from 'rxjs/operators';
 
 @Injectable()
 export class MockedHttpClient {
   private customers = originalCustomers;
 
   get(url: string): Observable<Customer[]> {
-    return this.getCustomers();
+    return this.getCustomers('GET', url);
   }
 
   post(url: string, customer: Customer): Observable<Customer[]> {
     this.customers.push({ ...customer, id: this.getNextId() });
-    return this.getCustomers();
+    return this.getCustomers('POST', url, customer);
   }
 
   put(url: string, customer: Customer): Observable<Customer[]> {
@@ -25,17 +26,33 @@ export class MockedHttpClient {
       }
       return c;
     });
-    return this.getCustomers();
+    return this.getCustomers('PUT', url, customer);
   }
 
   delete(url: string): Observable<Customer[]> {
     const id = Number(url.match(/(\d+)$/)[0]);
     this.customers = this.customers.filter(customer => customer.id !== id);
-    return this.getCustomers();
+    return this.getCustomers('DELETE', url);
   }
 
-  getCustomers(): Observable<Customer[]> {
-    return of(sortBy(this.customers, 'name'));
+  getCustomers(
+    httpMethod: string,
+    url: string,
+    body?: any
+  ): Observable<Customer[]> {
+    const customers = sortBy(this.customers, 'name');
+    return of(customers).pipe(
+      delay(Math.random() * 1000),
+      tap(() => {
+        console.group('Mocked Http Client');
+        console.log(`${httpMethod}: ${url}`);
+        if (body) {
+          console.log(`Body: ${JSON.stringify(body)}`);
+        }
+        console.log(customers);
+        console.groupEnd();
+      })
+    );
   }
 
   getNextId() {
