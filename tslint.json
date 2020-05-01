@@ -64,10 +64,6 @@
             "onlyDependOnLibsWithTags": ["type: feature"]
           },
           {
-            "sourceTag": "scope: customer",
-            "onlyDependOnLibsWithTags": ["scope: customer"]
-          },
-          {
             "sourceTag": "type: feature",
             "onlyDependOnLibsWithTags": ["type: data", "type: ui"]
           },
