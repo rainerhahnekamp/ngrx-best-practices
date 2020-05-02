@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Customer } from '../customer';
 
 @Component({
-  selector: 'app-customers',
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss']
 })
