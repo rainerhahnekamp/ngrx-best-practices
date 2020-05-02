@@ -10,12 +10,12 @@ import { map } from 'rxjs/operators';
 
 @Component({
   template: `
-    <app-customer
+    <eternal-customer
       *ngIf="customer$ | async as customer"
       [customer]="customer"
       (save)="edit($event)"
       (remove)="remove($event)"
-    ></app-customer>
+    ></eternal-customer>
   `
 })
 export class EditContainerComponent implements OnInit {

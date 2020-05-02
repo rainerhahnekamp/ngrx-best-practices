@@ -2,11 +2,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { formly } from 'ngx-formly-helpers';
-import { Observable } from 'rxjs';
 import { countries } from '../countries';
 import { Customer } from '../customer';
 
 @Component({
+  selector: 'eternal-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.scss']
 })

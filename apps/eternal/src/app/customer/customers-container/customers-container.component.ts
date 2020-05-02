@@ -7,10 +7,10 @@ import { fromCustomer } from '../+state/customer.selectors';
 
 @Component({
   template: `
-    <app-customers
+    <eternal-customers
       *ngIf="customers$ | async as customers"
       [customers]="customers"
-    ></app-customers>
+    ></eternal-customers>
   `
 })
 export class CustomersContainerComponent implements OnInit {

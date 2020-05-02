@@ -6,7 +6,10 @@ import { Customer } from '../customer';
 
 @Component({
   template: `
-    <app-customer [customer]="customer" (save)="add($event)"></app-customer>
+    <eternal-customer
+      [customer]="customer"
+      (save)="add($event)"
+    ></eternal-customer>
   `
 })
 export class AddContainerComponent {
