@@ -1,9 +1,9 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Customer } from '@eternal/domain/customer';
-import { sortBy } from 'lodash';
+import { sortBy, fromPairs } from 'lodash';
 import { Observable, of } from 'rxjs';
-import { delay, map, tap } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 import { customers as originalCustomers } from './data';
 
 @Injectable()
@@ -28,28 +28,25 @@ export class MockedHttpClient {
     const params = httpOptions.params;
     const page = Number(params.get('page'));
 
-    return this.getCustomers('GET', url).pipe(
-      map(customers => {
-        const name = params.get('name');
-        if (name) {
-          const regex = new RegExp(name, 'i');
-          customers = customers.filter(customer =>
-            (customer.name + customer.firstname).match(regex)
-          );
-        }
+    let customers = this.getSortedCustomers();
+    const name = params.get('name');
+    if (name) {
+      const regex = new RegExp(name, 'i');
+      customers = customers.filter(customer =>
+        (customer.name + customer.firstname).match(regex)
+      );
+    }
 
-        const country = params.get('country');
-        if (country) {
-          customers = customers.filter(
-            customer => customer.country === country
-          );
-        }
+    const country = params.get('country');
+    if (country) {
+      customers = customers.filter(customer => customer.country === country);
+    }
 
-        return customers.slice(
-          (page - 1) * this.pageSize,
-          page * this.pageSize
-        );
-      })
+    return this.logAndDelay(
+      customers.slice((page - 1) * this.pageSize, page * this.pageSize),
+      'GET',
+      url,
+      fromPairs(params.keys().map(key => [key, params.get(key)]))
     );
   }
 
@@ -79,8 +76,11 @@ export class MockedHttpClient {
     url: string,
     body?: any
   ): Observable<Customer[]> {
-    const customers = sortBy(this.customers, 'name');
-    return this.logAndDelay(customers, httpMethod, url, body);
+    return this.logAndDelay(this.getSortedCustomers(), httpMethod, url, body);
+  }
+
+  getSortedCustomers(): Customer[] {
+    return sortBy(this.customers, 'name');
   }
 
   logAndDelay<T extends Customer[] | Customer>(
