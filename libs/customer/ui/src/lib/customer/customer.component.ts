@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Customer } from '@eternal/domain/customer';
+import { Customer } from '@eternal/customer/domain';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { formly } from 'ngx-formly-helpers';
 import { countries } from '../countries';

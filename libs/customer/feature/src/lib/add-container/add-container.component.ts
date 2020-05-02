@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { CustomerStore } from '@eternal/data/customer';
-import { Customer } from '@eternal/domain/customer';
+import { Component, OnInit } from '@angular/core';
+import { Customer } from '@eternal/customer/domain';
+import { CustomerStore } from '@eternal/customer/data';
 
 @Component({
   template: `

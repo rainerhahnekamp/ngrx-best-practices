@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Customer } from '@eternal/domain/customer';
+import { Customer } from '@eternal/customer/domain';
 import { sortBy } from 'lodash';
 import { Observable, of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';

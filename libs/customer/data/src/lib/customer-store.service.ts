@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Customer } from '@eternal/domain/customer';
+import { Customer } from '@eternal/customer/domain';
 import { fromCustomer } from './customer.selectors';
 import { Observable } from 'rxjs';
 import { CustomerActions } from './customer.actions';

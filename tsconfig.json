@@ -16,10 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@eternal/domain/customer": ["libs/domain/customer/index.ts"],
-      "@eternal/feature/customer": ["libs/feature/customer/src/index.ts"],
-      "@eternal/data/customer": ["libs/data/customer/src/index.ts"],
-      "@eternal/ui/customer": ["libs/ui/customer/src/index.ts"]
+      "@eternal/customer/domain": ["libs/customer/domain/index.ts"],
+      "@eternal/customer/feature": ["libs/customer/feature/src/index.ts"],
+      "@eternal/customer/data": ["libs/customer/data/src/index.ts"],
+      "@eternal/customer/ui": ["libs/customer/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

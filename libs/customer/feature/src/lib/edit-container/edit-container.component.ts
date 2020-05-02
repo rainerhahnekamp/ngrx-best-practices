@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerStore } from '@eternal/data/customer';
-import { Customer } from '@eternal/domain/customer';
+import { CustomerStore } from '@eternal/customer/data';
+import { Customer } from '@eternal/customer/domain';
 import { Observable } from 'rxjs';
 
 @Component({

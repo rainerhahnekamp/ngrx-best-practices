@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
   UrlTree
 } from '@angular/router';
-import { CustomerStore } from '@eternal/data/customer';
+import { CustomerStore } from '@eternal/customer/data';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 

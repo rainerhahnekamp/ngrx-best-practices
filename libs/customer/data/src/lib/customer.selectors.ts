@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { customerFeatureKey, State, LoadStatus } from './customer.reducer';
-import { Customer } from '@eternal/domain/customer';
+import { Customer } from '@eternal/customer/domain';
 
 const selectCustomerState = createFeatureSelector<State>(customerFeatureKey);
 
