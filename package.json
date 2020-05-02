@@ -44,6 +44,7 @@
     "@ngx-formly/material": "^5.0.0",
     "@ngx-formly/schematics": "^5.5.15",
     "@nrwl/angular": "9.1.2",
+    "@types/lodash": "^4.14.150",
     "core-js": "^2.5.4",
     "lodash": "^4.17.15",
     "ngx-formly-helpers": "^0.9.3",
