@@ -7,7 +7,6 @@ import { fromCustomer } from '../+state/customer.selectors';
 import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'app-customers',
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss']
 })
