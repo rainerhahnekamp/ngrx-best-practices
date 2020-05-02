@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Customer } from '@eternal/domain/customer';
+import { Customer } from '@eternal/customer/domain';
 
 @Component({
   selector: 'eternal-customers',

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Customer } from '@eternal/domain/customer';
-import { CustomerAppState, fromCustomer } from '@eternal/data/customer';
+import { Customer } from '@eternal/customer/domain';
+import { CustomerAppState, fromCustomer } from '@eternal/customer/data';
 
 @Component({
   template: `

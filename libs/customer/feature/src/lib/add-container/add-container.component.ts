@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { CustomerAppState, CustomerActions } from '@eternal/data/customer';
-import { Customer } from '@eternal/domain/customer';
+import { CustomerAppState, CustomerActions } from '@eternal/customer/data';
+import { Customer } from '@eternal/customer/domain';
 
 @Component({
   template: `

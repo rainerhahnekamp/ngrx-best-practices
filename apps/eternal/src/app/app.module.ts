@@ -18,7 +18,7 @@ import { HolidaysModule } from './holidays/holidays.module';
 import { HomeComponent } from './home/home.component';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de-AT';
-import { CustomerModule } from '@eternal/feature/customer';
+import { CustomerModule } from '@eternal/customer/feature';
 
 registerLocaleData(localeDe, 'de-AT');
 

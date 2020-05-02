@@ -7,8 +7,8 @@ import {
   customerFeatureKey,
   DataCustomerModule,
   reducer
-} from '@eternal/data/customer';
-import { UiCustomerModule } from '@eternal/ui/customer';
+} from '@eternal/customer/data';
+import { UiCustomerModule } from '@eternal/customer/ui';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { AddContainerComponent } from './add-container/add-container.component';

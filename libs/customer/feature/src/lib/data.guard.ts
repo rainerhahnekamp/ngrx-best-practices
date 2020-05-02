@@ -12,7 +12,7 @@ import {
   CustomerAppState,
   CustomerActions,
   fromCustomer
-} from '@eternal/data/customer';
+} from '@eternal/customer/data';
 
 @Injectable({
   providedIn: 'root'

@@ -15,7 +15,7 @@ import { CustomerAppState, LoadStatus } from './customer.reducer';
 import { of } from 'rxjs';
 import { fromCustomer } from './customer.selectors';
 import { Store } from '@ngrx/store';
-import { Customer } from '@eternal/domain/customer';
+import { Customer } from '@eternal/customer/domain';
 
 @Injectable()
 export class CustomerEffects {

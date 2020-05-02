@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Customer } from '@eternal/domain/customer';
+import { Customer } from '@eternal/customer/domain';
 
 const get = createAction('[Customer] Get');
 const load = createAction('[Customer] Load');

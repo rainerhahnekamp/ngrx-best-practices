@@ -3,12 +3,12 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Customer } from '@eternal/domain/customer';
+import { Customer } from '@eternal/customer/domain';
 import {
   CustomerAppState,
   fromCustomer,
   CustomerActions
-} from '@eternal/data/customer';
+} from '@eternal/customer/data';
 
 @Component({
   template: `
