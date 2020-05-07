@@ -50,25 +50,25 @@ export class MockedHttpClient {
     );
   }
 
-  post(url: string, customer: Customer): Observable<Customer[]> {
+  post(url: string, customer: Customer): Observable<Customer> {
     this.customers.push({ ...customer, id: this.getNextId() });
-    return this.getCustomers('POST', url, customer);
+    return this.logAndDelay(customer, 'POST', url, customer);
   }
 
-  put(url: string, customer: Customer): Observable<Customer[]> {
+  put(url: string, customer: Customer): Observable<Customer> {
     this.customers = this.customers.map(c => {
       if (c.id === customer.id) {
         return customer;
       }
       return c;
     });
-    return this.getCustomers('PUT', url, customer);
+    return this.logAndDelay(customer, 'PUT', url, customer);
   }
 
-  delete(url: string): Observable<Customer[]> {
+  delete(url: string): Observable<void> {
     const id = Number(url.match(/(\d+)$/)[0]);
     this.customers = this.customers.filter(customer => customer.id !== id);
-    return this.getCustomers('DELETE', url);
+    return this.logAndDelay(null, 'DELETE', url);
   }
 
   getCustomers(
