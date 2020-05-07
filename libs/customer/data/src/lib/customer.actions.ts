@@ -22,10 +22,7 @@ const loadedById = createAction(
 );
 
 const add = createAction('[Customer] Add', props<{ customer: Customer }>());
-const added = createAction(
-  '[Customer] Added',
-  props<{ customers: Customer[] }>()
-);
+const added = createAction('[Customer] Added');
 
 const update = createAction(
   '[Customer] Update',
@@ -33,7 +30,7 @@ const update = createAction(
 );
 const updated = createAction(
   '[Customer] Updated',
-  props<{ customers: Customer[] }>()
+  props<{ customer: Customer }>()
 );
 
 const remove = createAction(
@@ -42,7 +39,7 @@ const remove = createAction(
 );
 const removed = createAction(
   '[CUSTOMER] Removed',
-  props<{ customers: Customer[] }>()
+  props<{ customer: Customer }>()
 );
 
 export const CustomerActions = {

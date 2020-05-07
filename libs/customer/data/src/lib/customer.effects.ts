@@ -82,10 +82,8 @@ export class CustomerEffects {
   addCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.add),
-      concatMap(({ customer }) =>
-        this.http.post<Customer[]>(this.baseUrl, customer)
-      ),
-      map(customers => CustomerActions.added({ customers })),
+      concatMap(({ customer }) => this.http.post<void>(this.baseUrl, customer)),
+      map(() => CustomerActions.added()),
       tap(() => this.router.navigateByUrl('/customer'))
     )
   );
@@ -94,9 +92,9 @@ export class CustomerEffects {
     this.actions$.pipe(
       ofType(CustomerActions.update),
       concatMap(({ customer }) =>
-        this.http.put<Customer[]>(this.baseUrl, customer)
+        this.http.put<Customer>(this.baseUrl, customer)
       ),
-      map(customers => CustomerActions.updated({ customers })),
+      map(customer => CustomerActions.updated({ customer })),
       tap(() => this.router.navigateByUrl('/customer'))
     )
   );
@@ -105,9 +103,11 @@ export class CustomerEffects {
     this.actions$.pipe(
       ofType(CustomerActions.remove),
       concatMap(({ customer }) =>
-        this.http.delete<Customer[]>(`${this.baseUrl}/${customer.id}`)
+        this.http
+          .delete<void>(`${this.baseUrl}/${customer.id}`)
+          .pipe(map(() => customer))
       ),
-      map(customers => CustomerActions.removed({ customers })),
+      map(customer => CustomerActions.removed({ customer })),
       tap(() => this.router.navigateByUrl('/customer'))
     )
   );

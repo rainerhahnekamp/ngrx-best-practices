@@ -1,5 +1,5 @@
 import { createReducer, Action, on } from '@ngrx/store';
-import { fromPairs } from 'lodash';
+import { fromPairs, omit } from 'lodash';
 import { CustomerActions, Context } from './customer.actions';
 import { Customer } from '@eternal/customer/domain';
 
@@ -50,17 +50,22 @@ const CustomerReducer = createReducer<State>(
       ...fromPairs([[customer.id, customer]])
     }
   })),
-  on(CustomerActions.added, (state, { customers }) => ({
+  on(CustomerActions.added, state => ({
     ...state,
-    customers
+    context: null
   })),
-  on(CustomerActions.updated, (state, { customers }) => ({
+  on(CustomerActions.updated, (state, { customer }) => ({
     ...state,
-    customers
+    totalCustomers: fromPairs(
+      Object.entries(state.totalCustomers).map(([id, c]) =>
+        c.id === customer.id ? [id, customer] : [id, c]
+      )
+    )
   })),
-  on(CustomerActions.removed, (state, { customers }) => ({
+  on(CustomerActions.removed, (state, { customer }) => ({
     ...state,
-    customers
+    context: null,
+    totalCustomers: omit(state.totalCustomers, '' + customer.id)
   }))
 );
 
