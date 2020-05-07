@@ -48,6 +48,7 @@
     "core-js": "^2.5.4",
     "lodash": "^4.17.15",
     "ngx-formly-helpers": "^0.9.3",
+    "object-hash": "^2.0.3",
     "rxjs": "~6.5.4",
     "zone.js": "^0.10.2"
   },

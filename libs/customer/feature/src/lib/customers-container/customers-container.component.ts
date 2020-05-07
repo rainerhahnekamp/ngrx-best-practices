@@ -19,7 +19,7 @@ import { Filter } from '@eternal/customer/ui';
 })
 export class CustomersContainerComponent implements OnInit {
   public customers$: Observable<Customer[]>;
-  public filter: Filter = { page: 1 };
+  public filter: Filter = { page: 1, name: '', country: '' };
   constructor(private customerStore: CustomerStore) {}
 
   ngOnInit() {

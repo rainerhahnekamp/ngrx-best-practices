@@ -45,14 +45,18 @@ export class CustomerEffects {
     this.actions$.pipe(
       ofType(CustomerActions.load),
       switchMap(action =>
-        this.http.get<Customer[]>(this.baseUrl, {
-          params: new HttpParams()
-            .set('page', '' + action.context.page)
-            .set('name', action.context.name)
-            .set('country', action.context.country)
-        })
+        this.http
+          .get<Customer[]>(this.baseUrl, {
+            params: new HttpParams()
+              .set('page', '' + action.context.page)
+              .set('name', action.context.name)
+              .set('country', action.context.country)
+          })
+          .pipe(map(customers => ({ customers, context: action.context })))
       ),
-      map(customers => CustomerActions.loaded({ customers }))
+      map(({ context, customers }) =>
+        CustomerActions.loaded({ context, customers })
+      )
     )
   );
 

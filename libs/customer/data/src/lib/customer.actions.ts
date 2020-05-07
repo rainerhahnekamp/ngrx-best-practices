@@ -11,7 +11,7 @@ const get = createAction('[Customer] Get', props<{ context: Context }>());
 const load = createAction('[Customer] Load', props<{ context: Context }>());
 const loaded = createAction(
   '[Customer] Loaded',
-  props<{ customers: Customer[] }>()
+  props<{ context: Context; customers: Customer[] }>()
 );
 
 const getById = createAction('[Customer] Get By Id', props<{ id: number }>());
