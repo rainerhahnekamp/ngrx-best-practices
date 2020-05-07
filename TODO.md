@@ -1,0 +1,3 @@
+- Loading spinner
+- Unit Tests
+- E2E Tests
