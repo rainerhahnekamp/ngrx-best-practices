@@ -127,85 +127,85 @@
         }
       }
     },
-    "feature-customer": {
+    "customer-feature": {
       "projectType": "library",
-      "root": "libs/feature/customer",
-      "sourceRoot": "libs/feature/customer/src",
+      "root": "libs/customer/feature",
+      "sourceRoot": "libs/customer/feature/src",
       "prefix": "eternal",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/feature/customer/tsconfig.lib.json",
-              "libs/feature/customer/tsconfig.spec.json"
+              "libs/customer/feature/tsconfig.lib.json",
+              "libs/customer/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/feature/customer/**"]
+            "exclude": ["**/node_modules/**", "!libs/customer/feature/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/feature/customer/jest.config.js",
-            "tsConfig": "libs/feature/customer/tsconfig.spec.json",
+            "jestConfig": "libs/customer/feature/jest.config.js",
+            "tsConfig": "libs/customer/feature/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/feature/customer/src/test-setup.ts"
+            "setupFile": "libs/customer/feature/src/test-setup.ts"
           }
         }
       },
       "schematics": {}
     },
-    "data-customer": {
+    "customer-data": {
       "projectType": "library",
-      "root": "libs/data/customer",
-      "sourceRoot": "libs/data/customer/src",
+      "root": "libs/customer/data",
+      "sourceRoot": "libs/customer/data/src",
       "prefix": "eternal",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/data/customer/tsconfig.lib.json",
-              "libs/data/customer/tsconfig.spec.json"
+              "libs/customer/data/tsconfig.lib.json",
+              "libs/customer/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/data/customer/**"]
+            "exclude": ["**/node_modules/**", "!libs/customer/data/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/data/customer/jest.config.js",
-            "tsConfig": "libs/data/customer/tsconfig.spec.json",
+            "jestConfig": "libs/customer/data/jest.config.js",
+            "tsConfig": "libs/customer/data/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/data/customer/src/test-setup.ts"
+            "setupFile": "libs/customer/data/src/test-setup.ts"
           }
         }
       },
       "schematics": {}
     },
-    "ui-customer": {
+    "customer-ui": {
       "projectType": "library",
-      "root": "libs/ui/customer",
-      "sourceRoot": "libs/ui/customer/src",
+      "root": "libs/customer/ui",
+      "sourceRoot": "libs/customer/ui/src",
       "prefix": "eternal",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/ui/customer/tsconfig.lib.json",
-              "libs/ui/customer/tsconfig.spec.json"
+              "libs/customer/ui/tsconfig.lib.json",
+              "libs/customer/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/ui/customer/**"]
+            "exclude": ["**/node_modules/**", "!libs/customer/ui/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/ui/customer/jest.config.js",
-            "tsConfig": "libs/ui/customer/tsconfig.spec.json",
+            "jestConfig": "libs/customer/ui/jest.config.js",
+            "tsConfig": "libs/customer/ui/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/ui/customer/src/test-setup.ts"
+            "setupFile": "libs/customer/ui/src/test-setup.ts"
           }
         }
       },
