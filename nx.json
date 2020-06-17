@@ -18,7 +18,7 @@
       "tags": [],
       "implicitDependencies": ["eternal"]
     },
-    "customer-featre": {
+    "customer-feature": {
       "tags": ["scope: customer", "type: feature"]
     },
     "customer-data": {
