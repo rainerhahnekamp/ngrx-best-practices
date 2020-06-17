@@ -18,13 +18,13 @@
       "tags": [],
       "implicitDependencies": ["eternal"]
     },
-    "feature-customer": {
+    "customer-feature": {
       "tags": ["scope:customer", "type: feature"]
     },
-    "data-customer": {
+    "customer-data": {
       "tags": ["scope:customer", "type: data"]
     },
-    "ui-customer": {
+    "customer-ui": {
       "tags": ["scope:customer", "type: ui"]
     }
   }
