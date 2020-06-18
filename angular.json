@@ -215,57 +215,57 @@
         }
       }
     },
-    "data-booking": {
+    "booking-data": {
       "projectType": "library",
-      "root": "libs/data/booking",
-      "sourceRoot": "libs/data/booking/src",
+      "root": "libs/booking/data",
+      "sourceRoot": "libs/booking/data/src",
       "prefix": "eternal",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/data/booking/tsconfig.lib.json",
-              "libs/data/booking/tsconfig.spec.json"
+              "libs/booking/data/tsconfig.lib.json",
+              "libs/booking/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/data/booking/**"]
+            "exclude": ["**/node_modules/**", "!libs/booking/data/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/data/booking/jest.config.js",
-            "tsConfig": "libs/data/booking/tsconfig.spec.json",
+            "jestConfig": "libs/booking/data/jest.config.js",
+            "tsConfig": "libs/booking/data/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/data/booking/src/test-setup.ts"
+            "setupFile": "libs/booking/data/src/test-setup.ts"
           }
         }
       },
       "schematics": {}
     },
-    "data-user": {
+    "user-data": {
       "projectType": "library",
-      "root": "libs/data/user",
-      "sourceRoot": "libs/data/user/src",
+      "root": "libs/user/data",
+      "sourceRoot": "libs/user/data/src",
       "prefix": "eternal",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/data/user/tsconfig.lib.json",
-              "libs/data/user/tsconfig.spec.json"
+              "libs/user/data/tsconfig.lib.json",
+              "libs/user/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/data/user/**"]
+            "exclude": ["**/node_modules/**", "!libs/user/data/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/data/user/jest.config.js",
-            "tsConfig": "libs/data/user/tsconfig.spec.json",
+            "jestConfig": "libs/user/data/jest.config.js",
+            "tsConfig": "libs/user/data/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/data/user/src/test-setup.ts"
+            "setupFile": "libs/user/data/src/test-setup.ts"
           }
         }
       },
