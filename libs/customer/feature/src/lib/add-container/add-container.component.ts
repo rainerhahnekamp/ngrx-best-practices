@@ -1,11 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Customer } from '@eternal/customer/domain';
-import { CustomerStore } from '@eternal/customer/data';
 import { Component } from '@angular/core';
-import { CustomerActions, CustomerAppState } from '@eternal/customer/data';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CustomerStore } from '@eternal/customer/data';
 import { Customer } from '@eternal/customer/domain';
-import { Store } from '@ngrx/store';
-import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   template: `

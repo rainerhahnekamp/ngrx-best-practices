@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { CustomerStore } from '@eternal/customer/data';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { CustomerAppState, fromCustomer } from '@eternal/customer/data';
 
 @Component({
   template: `
@@ -16,15 +15,12 @@ import { CustomerAppState, fromCustomer } from '@eternal/customer/data';
 export class WelcomeContainerComponent implements OnInit {
   name$: Observable<string>;
 
-  constructor(
-    private route: ActivatedRoute,
-    private store: Store<CustomerAppState>
-  ) {}
+  constructor(private route: ActivatedRoute, private store: CustomerStore) {}
 
   ngOnInit() {
     const id = Number(this.route.snapshot.params.id);
     this.name$ = this.store
-      .select(fromCustomer.selectById, id)
+      .getById(id)
       .pipe(map(customer => `${customer.firstname} ${customer.name}`));
   }
 }
