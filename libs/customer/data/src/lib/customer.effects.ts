@@ -62,22 +62,26 @@ export class CustomerEffects {
   updateCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.update),
-      concatMap(({ customer }) =>
-        this.http.put<Customer[]>(this.baseUrl, customer)
+      concatMap(({ customer, redirect }) =>
+        this.http
+          .put<Customer[]>(this.baseUrl, customer)
+          .pipe(map(customers => ({ customers, redirect })))
       ),
-      map(customers => CustomerActions.updated({ customers })),
-      tap(() => this.router.navigateByUrl('/customer'))
+      map(payload => CustomerActions.updated(payload)),
+      tap(({ redirect }) => this.router.navigateByUrl(redirect))
     )
   );
 
   removeCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.remove),
-      concatMap(({ customer }) =>
-        this.http.delete<Customer[]>(`${this.baseUrl}/${customer.id}`)
+      concatMap(({ customer, redirect }) =>
+        this.http
+          .delete<Customer[]>(`${this.baseUrl}/${customer.id}`)
+          .pipe(map(customers => ({ customers, redirect })))
       ),
-      map(customers => CustomerActions.removed({ customers })),
-      tap(() => this.router.navigateByUrl('/customer'))
+      map(payload => CustomerActions.removed(payload)),
+      tap(({ redirect }) => this.router.navigateByUrl(redirect))
     )
   );
 }
