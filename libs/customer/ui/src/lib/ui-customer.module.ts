@@ -11,9 +11,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
-  declarations: [CustomersComponent, CustomerComponent],
+  declarations: [CustomersComponent, CustomerComponent, WelcomeComponent],
   imports: [
     CommonModule,
     RouterModule.forChild([]),
@@ -26,6 +27,6 @@ import { MatNativeDateModule } from '@angular/material/core';
     FormlyMaterialModule,
     FormlyMatDatepickerModule
   ],
-  exports: [CustomersComponent, CustomerComponent]
+  exports: [CustomersComponent, CustomerComponent, WelcomeComponent]
 })
 export class UiCustomerModule {}

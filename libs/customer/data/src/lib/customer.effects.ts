@@ -1,21 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Customer } from '@eternal/customer/domain';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import {
+  concatMap,
+  filter,
   map,
   switchMap,
   tap,
-  concatMap,
-  withLatestFrom,
-  filter
+  withLatestFrom
 } from 'rxjs/operators';
 import { CustomerActions } from './customer.actions';
-import { Router } from '@angular/router';
 import { CustomerAppState, LoadStatus } from './customer.reducer';
-import { of } from 'rxjs';
 import { fromCustomer } from './customer.selectors';
-import { Store } from '@ngrx/store';
-import { Customer } from '@eternal/customer/domain';
 
 @Injectable()
 export class CustomerEffects {
@@ -51,33 +51,44 @@ export class CustomerEffects {
   addCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.add),
-      concatMap(({ customer }) =>
-        this.http.post<Customer[]>(this.baseUrl, customer)
+      concatMap(({ customer, redirectSupplier }) =>
+        this.http
+          .post<{ id: number; customers: Customer[] }>(this.baseUrl, customer)
+          .pipe(
+            map(({ customers, id }) => ({
+              customers,
+              redirect: redirectSupplier(id)
+            }))
+          )
       ),
-      map(customers => CustomerActions.added({ customers })),
-      tap(() => this.router.navigateByUrl('/customer'))
+      map(payload => CustomerActions.added(payload)),
+      tap(({ redirect }) => this.router.navigateByUrl(redirect))
     )
   );
 
   updateCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.update),
-      concatMap(({ customer }) =>
-        this.http.put<Customer[]>(this.baseUrl, customer)
+      concatMap(({ customer, redirect }) =>
+        this.http
+          .put<Customer[]>(this.baseUrl, customer)
+          .pipe(map(customers => ({ customers, redirect })))
       ),
-      map(customers => CustomerActions.updated({ customers })),
-      tap(() => this.router.navigateByUrl('/customer'))
+      map(payload => CustomerActions.updated(payload)),
+      tap(({ redirect }) => this.router.navigateByUrl(redirect))
     )
   );
 
   removeCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.remove),
-      concatMap(({ customer }) =>
-        this.http.delete<Customer[]>(`${this.baseUrl}/${customer.id}`)
+      concatMap(({ customer, redirect }) =>
+        this.http
+          .delete<Customer[]>(`${this.baseUrl}/${customer.id}`)
+          .pipe(map(customers => ({ customers, redirect })))
       ),
-      map(customers => CustomerActions.removed({ customers })),
-      tap(() => this.router.navigateByUrl('/customer'))
+      map(payload => CustomerActions.removed(payload)),
+      tap(({ redirect }) => this.router.navigateByUrl(redirect))
     )
   );
 }

@@ -5,6 +5,7 @@ import { fromCustomer } from './customer.selectors';
 import { Observable } from 'rxjs';
 import { CustomerActions } from './customer.actions';
 import { map } from 'rxjs/operators';
+import { UrlTree } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -40,16 +41,16 @@ export class CustomerStore {
       .pipe(map(customer => ({ ...customer })));
   }
 
-  public add(customer: Customer) {
-    this.store.dispatch(CustomerActions.add({ customer }));
+  public add(customer: Customer, redirectSupplier: (id: number) => UrlTree) {
+    this.store.dispatch(CustomerActions.add({ customer, redirectSupplier }));
   }
 
-  public update(customer: Customer) {
-    this.store.dispatch(CustomerActions.update({ customer }));
+  public update(customer: Customer, redirect: UrlTree) {
+    this.store.dispatch(CustomerActions.update({ customer, redirect }));
   }
 
-  public remove(customer: Customer) {
-    this.store.dispatch(CustomerActions.remove({ customer }));
+  public remove(customer: Customer, redirect: UrlTree) {
+    this.store.dispatch(CustomerActions.remove({ customer, redirect }));
   }
 
   private checkForGet() {
