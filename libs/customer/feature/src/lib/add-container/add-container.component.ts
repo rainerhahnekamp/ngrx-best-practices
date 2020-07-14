@@ -32,7 +32,9 @@ export class AddContainerComponent {
       CustomerActions.add({
         customer,
         redirectSupplier: id =>
-          this.router.createUrlTree(['..', id], { relativeTo: this.route })
+          this.router.createUrlTree(['..', 'welcome', id], {
+            relativeTo: this.route
+          })
       })
     );
   }

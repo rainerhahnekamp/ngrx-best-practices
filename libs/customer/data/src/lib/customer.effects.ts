@@ -1,21 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Customer } from '@eternal/customer/domain';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { of } from 'rxjs';
 import {
+  concatMap,
+  filter,
   map,
   switchMap,
   tap,
-  concatMap,
-  withLatestFrom,
-  filter
+  withLatestFrom
 } from 'rxjs/operators';
 import { CustomerActions } from './customer.actions';
-import { Router } from '@angular/router';
 import { CustomerAppState, LoadStatus } from './customer.reducer';
-import { of } from 'rxjs';
 import { fromCustomer } from './customer.selectors';
-import { Store } from '@ngrx/store';
-import { Customer } from '@eternal/customer/domain';
 
 @Injectable()
 export class CustomerEffects {
@@ -53,19 +53,16 @@ export class CustomerEffects {
       ofType(CustomerActions.add),
       concatMap(({ customer, redirectSupplier }) =>
         this.http
-          .post<{ newId: number; customers: Customer[] }>(
-            this.baseUrl,
-            customer
-          )
+          .post<{ id: number; customers: Customer[] }>(this.baseUrl, customer)
           .pipe(
-            map(({ customers, newId }) => ({
+            map(({ customers, id }) => ({
               customers,
-              redirect: redirectSupplier(newId)
+              redirect: redirectSupplier(id)
             }))
           )
       ),
       map(payload => CustomerActions.added(payload)),
-      tap(() => this.router.navigateByUrl('/customer'))
+      tap(({ redirect }) => this.router.navigateByUrl(redirect))
     )
   );
 
