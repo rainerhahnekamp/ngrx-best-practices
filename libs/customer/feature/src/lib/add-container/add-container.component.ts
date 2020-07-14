@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { CustomerAppState, CustomerActions } from '@eternal/customer/data';
+import { Component } from '@angular/core';
+import { CustomerActions, CustomerAppState } from '@eternal/customer/data';
 import { Customer } from '@eternal/customer/domain';
+import { Store } from '@ngrx/store';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   template: `
@@ -20,9 +21,19 @@ export class AddContainerComponent {
     birthdate: null
   };
 
-  constructor(private store: Store<CustomerAppState>) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<CustomerAppState>
+  ) {}
 
   add(customer: Customer) {
-    this.store.dispatch(CustomerActions.add({ customer }));
+    this.store.dispatch(
+      CustomerActions.add({
+        customer,
+        redirectSupplier: id =>
+          this.router.createUrlTree(['..', id], { relativeTo: this.route })
+      })
+    );
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
-import { Observable, VirtualTimeScheduler } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Customer } from '@eternal/customer/domain';
 import {

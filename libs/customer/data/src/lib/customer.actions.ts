@@ -9,10 +9,19 @@ const loaded = createAction(
   props<{ customers: Customer[] }>()
 );
 
-const add = createAction('[Customer] Add', props<{ customer: Customer }>());
+const add = createAction(
+  '[Customer] Add',
+  props<{
+    customer: Customer;
+    redirectSupplier: (customerId: number) => UrlTree;
+  }>()
+);
 const added = createAction(
   '[Customer] Added',
-  props<{ customers: Customer[] }>()
+  props<{
+    customers: Customer[];
+    redirect: UrlTree;
+  }>()
 );
 
 const update = createAction(

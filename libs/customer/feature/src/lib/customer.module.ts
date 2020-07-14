@@ -16,12 +16,14 @@ import { CustomersContainerComponent } from './customers-container/customers-con
 import { DataGuard } from './data.guard';
 import { EditContainerComponent } from './edit-container/edit-container.component';
 import { MockedHttpClient } from './mocked-http-client.service';
+import { WelcomeContainerComponent } from './welcome-container/welcome-container.component';
 
 @NgModule({
   declarations: [
     AddContainerComponent,
     EditContainerComponent,
-    CustomersContainerComponent
+    CustomersContainerComponent,
+    WelcomeContainerComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +40,7 @@ import { MockedHttpClient } from './mocked-http-client.service';
             component: CustomersContainerComponent
           },
           { path: 'new', component: AddContainerComponent },
+          { path: 'welcome/:id', component: WelcomeContainerComponent },
           {
             path: ':id',
             component: EditContainerComponent
