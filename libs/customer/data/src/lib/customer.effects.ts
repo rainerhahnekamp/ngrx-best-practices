@@ -86,33 +86,45 @@ export class CustomerEffects {
   addCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.add),
-      concatMap(({ customer }) => this.http.post<void>(this.baseUrl, customer)),
-      map(() => CustomerActions.added()),
-      tap(() => this.router.navigateByUrl('/customer'))
+      concatMap(({ customer, redirectSupplier }) =>
+        this.http
+          .post<{ id: number; customers: Customer[] }>(this.baseUrl, customer)
+          .pipe(
+            map(({ id }) => ({
+              redirect: redirectSupplier(id)
+            }))
+          )
+      ),
+      map(payload => CustomerActions.added(payload)),
+      tap(({ redirect }) => this.router.navigateByUrl(redirect))
     )
   );
 
   updateCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.update),
-      concatMap(({ customer }) =>
-        this.http.put<Customer>(this.baseUrl, customer)
+      concatMap(({ customer, redirect }) =>
+        this.http
+          .put<Customer>(this.baseUrl, customer)
+          .pipe(
+            map(updatedCustomer => ({ customer: updatedCustomer, redirect }))
+          )
       ),
-      map(customer => CustomerActions.updated({ customer })),
-      tap(() => this.router.navigateByUrl('/customer'))
+      map(payload => CustomerActions.updated(payload)),
+      tap(({ redirect }) => this.router.navigateByUrl(redirect))
     )
   );
 
   removeCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.remove),
-      concatMap(({ customer }) =>
+      concatMap(({ customer, redirect }) =>
         this.http
           .delete<void>(`${this.baseUrl}/${customer.id}`)
-          .pipe(map(() => customer))
+          .pipe(map(() => ({ customer, redirect })))
       ),
-      map(customer => CustomerActions.removed({ customer })),
-      tap(() => this.router.navigateByUrl('/customer'))
+      map(payload => CustomerActions.removed(payload)),
+      tap(({ redirect }) => this.router.navigateByUrl(redirect))
     )
   );
 }

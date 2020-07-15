@@ -77,6 +77,7 @@ const CustomerReducer = createReducer<State>(
   })),
   on(CustomerActions.updated, (state, { customer }) => ({
     ...state,
+    context: null,
     totalCustomers: fromPairs(
       Object.entries(state.totalCustomers).map(([id, c]) =>
         c.id === customer.id ? [id, customer] : [id, c]
