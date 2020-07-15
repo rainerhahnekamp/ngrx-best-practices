@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { UrlTree } from '@angular/router';
 import { Customer } from '@eternal/customer/domain';
+import { Store } from '@ngrx/store';
+import { combineLatest, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { Context, CustomerActions } from './customer.actions';
 import { fromCustomer } from './customer.selectors';
-import { Observable, combineLatest } from 'rxjs';
-import { CustomerActions, Context } from './customer.actions';
-import { map, filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -48,15 +49,15 @@ export class CustomerStore {
     this.store.dispatch(CustomerActions.get({ context }));
   }
 
-  public add(customer: Customer) {
-    this.store.dispatch(CustomerActions.add({ customer }));
+  public add(customer: Customer, redirectSupplier: (id: number) => UrlTree) {
+    this.store.dispatch(CustomerActions.add({ customer, redirectSupplier }));
   }
 
-  public update(customer: Customer) {
-    this.store.dispatch(CustomerActions.update({ customer }));
+  public update(customer: Customer, redirect: UrlTree) {
+    this.store.dispatch(CustomerActions.update({ customer, redirect }));
   }
 
-  public remove(customer: Customer) {
-    this.store.dispatch(CustomerActions.remove({ customer }));
+  public remove(customer: Customer, redirect: UrlTree) {
+    this.store.dispatch(CustomerActions.remove({ customer, redirect }));
   }
 }

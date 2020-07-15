@@ -15,12 +15,14 @@ import { CustomerFilterComponent } from './customer-filter/customer-filter.compo
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
     CustomersComponent,
     CustomerComponent,
-    CustomerFilterComponent
+    CustomerFilterComponent,
+    WelcomeComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +39,11 @@ import { MatSelectModule } from '@angular/material/select';
     FormlyMaterialModule,
     FormlyMatDatepickerModule
   ],
-  exports: [CustomersComponent, CustomerComponent, CustomerFilterComponent]
+  exports: [
+    CustomersComponent,
+    CustomerComponent,
+    CustomerFilterComponent,
+    WelcomeComponent
+  ]
 })
 export class UiCustomerModule {}
