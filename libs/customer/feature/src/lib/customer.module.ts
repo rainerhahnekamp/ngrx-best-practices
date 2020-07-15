@@ -2,20 +2,22 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { DataBookingModule } from '@eternal/booking/data';
 import { DataCustomerModule } from '@eternal/customer/data';
 import { UiCustomerModule } from '@eternal/customer/ui';
+import { DataUserModule } from '@eternal/user/data';
 import { AddContainerComponent } from './add-container/add-container.component';
 import { CustomersContainerComponent } from './customers-container/customers-container.component';
 import { EditContainerComponent } from './edit-container/edit-container.component';
 import { MockedHttpClient } from './mocked-http-client.service';
-import { DataUserModule } from '@eternal/user/data';
-import { DataBookingModule } from '@eternal/booking/data';
+import { WelcomeContainerComponent } from './welcome-container/welcome-container.component';
 
 @NgModule({
   declarations: [
     AddContainerComponent,
     EditContainerComponent,
-    CustomersContainerComponent
+    CustomersContainerComponent,
+    WelcomeContainerComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +35,7 @@ import { DataBookingModule } from '@eternal/booking/data';
             component: CustomersContainerComponent
           },
           { path: 'new', component: AddContainerComponent },
+          { path: 'welcome/:id', component: WelcomeContainerComponent },
           {
             path: ':id',
             component: EditContainerComponent

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Customer } from '@eternal/customer/domain';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerStore } from '@eternal/customer/data';
+import { Customer } from '@eternal/customer/domain';
 
 @Component({
   template: `
@@ -12,11 +13,19 @@ import { CustomerStore } from '@eternal/customer/data';
 })
 export class AddContainerComponent {
   customer: Customer;
-  constructor(public customerStore: CustomerStore) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    public customerStore: CustomerStore
+  ) {
     this.customer = this.customerStore.newCustomer();
   }
 
   add(customer: Customer) {
-    this.customerStore.add(customer);
+    this.customerStore.add(customer, id =>
+      this.router.createUrlTree(['..', 'welcome', id], {
+        relativeTo: this.route
+      })
+    );
   }
 }

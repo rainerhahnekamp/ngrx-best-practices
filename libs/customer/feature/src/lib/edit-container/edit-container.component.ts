@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { CustomerViewModel } from '@eternal/customer/ui';
+import { ActivatedRoute, Router, UrlTree } from '@angular/router';
+import { Booking, BookingStore } from '@eternal/booking/data';
 import { CustomerStore } from '@eternal/customer/data';
 import { Customer } from '@eternal/customer/domain';
-import { UserStore, User } from '@eternal/user/data';
-import { BookingStore, Booking } from '@eternal/booking/data';
+import { CustomerViewModel } from '@eternal/customer/ui';
+import { User, UserStore } from '@eternal/user/data';
+import { combineLatest, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   template: `
@@ -20,8 +20,10 @@ import { BookingStore, Booking } from '@eternal/booking/data';
 })
 export class EditContainerComponent implements OnInit {
   customer$: Observable<CustomerViewModel>;
+  private redirect: UrlTree;
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private customerStore: CustomerStore,
     private userStore: UserStore,
     private bookingStore: BookingStore
@@ -38,15 +40,18 @@ export class EditContainerComponent implements OnInit {
         this.mapToViewModel(customer, user, bookings)
       )
     );
+    this.redirect = this.router.createUrlTree(['..'], {
+      relativeTo: this.route
+    });
   }
 
   edit(customer: Customer) {
-    this.customerStore.update(customer);
+    this.customerStore.update(customer, this.redirect);
   }
 
   remove(customer: Customer) {
     if (confirm(`Really delete ${customer}?`)) {
-      this.customerStore.remove(customer);
+      this.customerStore.remove(customer, this.redirect);
     }
   }
 
