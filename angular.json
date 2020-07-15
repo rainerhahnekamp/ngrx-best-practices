@@ -86,10 +86,7 @@
               "apps/eternal/tsconfig.app.json",
               "apps/eternal/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/eternal/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/eternal/**/*"]
           }
         },
         "test": {
@@ -124,13 +121,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/eternal-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/eternal-e2e/**"
-            ]
+            "tsConfig": ["apps/eternal-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/eternal-e2e/**/*"]
           }
         }
       }
