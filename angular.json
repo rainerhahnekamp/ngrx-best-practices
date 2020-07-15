@@ -86,7 +86,7 @@
               "apps/eternal/tsconfig.app.json",
               "apps/eternal/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/eternal/**"]
+            "exclude": ["**/node_modules/**", "!apps/eternal/**/*"]
           }
         },
         "test": {
@@ -122,7 +122,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/eternal-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/eternal-e2e/**"]
+            "exclude": ["**/node_modules/**", "!apps/eternal-e2e/**/*"]
           }
         }
       }
@@ -140,7 +140,7 @@
               "libs/customer/feature/tsconfig.lib.json",
               "libs/customer/feature/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/customer/feature/**"]
+            "exclude": ["**/node_modules/**", "!libs/customer/feature/**/*"]
           }
         },
         "test": {
@@ -168,7 +168,7 @@
               "libs/customer/data/tsconfig.lib.json",
               "libs/customer/data/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/customer/data/**"]
+            "exclude": ["**/node_modules/**", "!libs/customer/data/**/*"]
           }
         },
         "test": {
@@ -196,7 +196,7 @@
               "libs/customer/ui/tsconfig.lib.json",
               "libs/customer/ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/customer/ui/**"]
+            "exclude": ["**/node_modules/**", "!libs/customer/ui/**/*"]
           }
         },
         "test": {
