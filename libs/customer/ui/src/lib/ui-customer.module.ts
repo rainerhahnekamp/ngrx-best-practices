@@ -17,13 +17,21 @@ import { CustomerFilterComponent } from './customer-filter/customer-filter.compo
 import { CustomerComponent } from './customer/customer.component';
 import { CustomersComponent } from './customers/customers.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { CustomerBookingComponent } from './customer-booking/customer-booking.component';
+import { CustomerReviewComponent } from './customer-review/customer-review.component';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { CustomerEditComponent } from './customer-edit/customer-edit.component';
 
 @NgModule({
   declarations: [
-    CustomersComponent,
+    CustomerBookingComponent,
     CustomerComponent,
+    CustomerEditComponent,
     CustomerFilterComponent,
-    WelcomeComponent
+    CustomerReviewComponent,
+    CustomersComponent,
+    WelcomeComponent,
   ],
   imports: [
     CommonModule,
@@ -34,18 +42,23 @@ import { WelcomeComponent } from './welcome/welcome.component';
     MatInputModule,
     MatButtonModule,
     MatDatepickerModule,
+    MatExpansionModule,
     MatNativeDateModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatTabsModule,
     FormlyModule.forChild(),
     FormlyMaterialModule,
-    FormlyMatDatepickerModule
+    FormlyMatDatepickerModule,
   ],
   exports: [
     CustomersComponent,
     CustomerComponent,
+    CustomerEditComponent,
     CustomerFilterComponent,
-    WelcomeComponent
-  ]
+    CustomerBookingComponent,
+    CustomerReviewComponent,
+    WelcomeComponent,
+  ],
 })
 export class UiCustomerModule {}

@@ -1,0 +1,22 @@
+<div class="customer">
+  <form [formGroup]="formGroup" (ngSubmit)="submit(customer)">
+    <formly-form
+      [form]="formGroup"
+      [fields]="fields"
+      [model]="customer"
+    ></formly-form>
+
+    <div class="buttons">
+      <a mat-raised-button [routerLink]="['..']">Back</a>
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="remove.emit(customer)"
+      >
+        Delete
+      </button>
+      <button mat-raised-button color="primary" type="submit">Save</button>
+    </div>
+  </form>
+</div>

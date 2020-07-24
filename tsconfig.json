@@ -21,7 +21,8 @@
       "@eternal/customer/data": ["libs/customer/data/src/index.ts"],
       "@eternal/customer/ui": ["libs/customer/ui/src/index.ts"],
       "@eternal/booking/data": ["libs/booking/data/src/index.ts"],
-      "@eternal/user/data": ["libs/user/data/src/index.ts"]
+      "@eternal/user/data": ["libs/user/data/src/index.ts"],
+      "@eternal/review/data": ["libs/review/data/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,0 +1,29 @@
+div.customer {
+  padding: 1em 0;
+  display: flex;
+  h3 {
+    margin: 0;
+    margin-bottom: 1em;
+  }
+
+  form {
+    width: 20em;
+    .buttons {
+      display: flex;
+      justify-content: space-evenly;
+    }
+  }
+
+  .bookings {
+    margin-left: 5em;
+    > div {
+      margin: 1em 0;
+      button: {
+        padding-left: 3em;
+      }
+    }
+    mat-card {
+      margin: 1em 0;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<eternal-customer
+  *ngIf="customer$ | async as customer"
+  [customer]="customer"
+  [tab1]="tab1"
+  [tab2]="tab2"
+  [tab3]="tab3"
+  tab1Label="Edit"
+  tab2Label="Bookings"
+  tab3Label="Reviews"
+></eternal-customer>
+<ng-template #tab1
+  ><eternal-customer-edit-container></eternal-customer-edit-container
+></ng-template>
+<ng-template #tab2
+  ><eternal-customer-booking-container></eternal-customer-booking-container
+></ng-template>
+<ng-template #tab3
+  ><eternal-customer-review-container></eternal-customer-review-container
+></ng-template>

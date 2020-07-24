@@ -1,0 +1,11 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let review of reviews">
+    <mat-expansion-panel-header
+      ><mat-panel-title>{{
+        review.title
+      }}</mat-panel-title></mat-expansion-panel-header
+    >
+    <p [innerHTML]="review.content"></p>
+    <p [innerHTML]="stars(review.rating)"></p>
+  </mat-expansion-panel>
+</mat-accordion>

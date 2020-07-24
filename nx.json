@@ -32,6 +32,9 @@
     },
     "user-data": {
       "tags": ["scope: user", "type: data"]
+    },
+    "review-data": {
+      "tags": []
     }
   }
 }

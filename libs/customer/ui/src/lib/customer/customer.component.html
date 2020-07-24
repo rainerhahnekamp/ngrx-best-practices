@@ -1,40 +1,12 @@
-<div class="customer">
-  <form [formGroup]="formGroup" (ngSubmit)="submit(customer)">
-    <h3>Details</h3>
-    <formly-form
-      [form]="formGroup"
-      [fields]="fields"
-      [model]="customer"
-    ></formly-form>
-
-    <div class="buttons">
-      <a mat-raised-button [routerLink]="['..']">Back</a>
-      <button
-        mat-raised-button
-        color="warn"
-        type="button"
-        (click)="remove.emit(customer)"
-      >
-        Delete
-      </button>
-      <button mat-raised-button color="primary" type="submit">Save</button>
-    </div>
-  </form>
-  <div class="bookings">
-    <h3>Bookings</h3>
-    <mat-card *ngFor="let booking of customer.bookings">
-      <mat-card-header>
-        <mat-card-title>{{ booking.name }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-actions>
-        <button
-          mat-raised-button
-          *ngIf="booking.cancelStatus !== 'none'"
-          [disabled]="booking.cancelStatus === 'notCancellable'"
-        >
-          Cancel
-        </button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
-</div>
+<h2>Details: {{ customer.firstname }} {{ customer.name }}</h2>
+<mat-tab-group>
+  <mat-tab [label]="tab1Label"
+    ><ng-container *ngTemplateOutlet="tab1"></ng-container
+  ></mat-tab>
+  <mat-tab [label]="tab2Label"
+    ><ng-container *ngTemplateOutlet="tab2"></ng-container
+  ></mat-tab>
+  <mat-tab [label]="tab3Label"
+    ><ng-container *ngTemplateOutlet="tab3"></ng-container
+  ></mat-tab>
+</mat-tab-group>

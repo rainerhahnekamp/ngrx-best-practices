@@ -1,0 +1,16 @@
+<div class="bookings">
+  <mat-card *ngFor="let booking of customerBookings">
+    <mat-card-header>
+      <mat-card-title>{{ booking.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-actions>
+      <button
+        mat-raised-button
+        *ngIf="booking.cancelStatus !== 'none'"
+        [disabled]="booking.cancelStatus === 'notCancellable'"
+      >
+        Cancel
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
