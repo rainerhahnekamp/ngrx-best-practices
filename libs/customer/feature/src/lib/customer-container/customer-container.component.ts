@@ -5,7 +5,7 @@ import { Customer } from '@eternal/customer/domain';
 import { Observable } from 'rxjs';
 
 @Component({
-  templateUrl: './customer-container.component.html',
+  templateUrl: './customer-container.component.html'
 })
 export class CustomerContainerComponent implements OnInit {
   customer$: Observable<Customer>;
@@ -14,5 +14,6 @@ export class CustomerContainerComponent implements OnInit {
   ngOnInit() {
     const id = Number(this.route.snapshot.params.id);
     this.customer$ = this.store.getById(id);
+    this.store.setSelected(id);
   }
 }

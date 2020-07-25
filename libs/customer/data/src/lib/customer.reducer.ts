@@ -10,6 +10,7 @@ export interface State {
   isLoaded: boolean;
   context: Context;
   currentCustomerIds: number[];
+  selected: number;
   totalCustomers: { [id: string]: Customer };
   cache: { [contextHash: string]: number[] };
 }
@@ -22,6 +23,7 @@ export const initialState: State = {
   isLoaded: false,
   context: null,
   currentCustomerIds: [],
+  selected: 0,
   totalCustomers: {},
   cache: {}
 };
@@ -88,6 +90,10 @@ const CustomerReducer = createReducer<State>(
     ...state,
     context: null,
     totalCustomers: omit(state.totalCustomers, '' + customer.id)
+  })),
+  on(CustomerActions.setSelected, (state, { id }) => ({
+    ...state,
+    selected: id
   }))
 );
 

@@ -53,6 +53,11 @@ const removed = createAction(
   props<{ customer: Customer; redirect: UrlTree }>()
 );
 
+const setSelected = createAction(
+  '[CUSTOMER] Set Selected',
+  props<{ id: number }>()
+);
+
 export const CustomerActions = {
   get,
   load,
@@ -65,7 +70,8 @@ export const CustomerActions = {
   update,
   updated,
   remove,
-  removed
+  removed,
+  setSelected
 };
 
 export const PublicCustomerActions = {

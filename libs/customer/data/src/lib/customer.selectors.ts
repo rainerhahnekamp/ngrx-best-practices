@@ -25,10 +25,22 @@ const selectContext = createSelector(
   state => state.context
 );
 
+const selectSelected = createSelector(
+  selectCustomerState,
+  state => state.selected
+);
+
+const selectSelectedCustomer = createSelector(
+  selectSelected,
+  selectAll,
+  (id, customersDict) => customersDict[id]
+);
+
 export const fromCustomer = {
   selectCurrent,
   selectById,
   selectAll,
   isLoaded,
-  selectContext
+  selectContext,
+  selectSelectedCustomer
 };

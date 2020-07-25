@@ -3,7 +3,7 @@ import { UrlTree } from '@angular/router';
 import { Customer } from '@eternal/customer/domain';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { Context, CustomerActions } from './customer.actions';
 import { fromCustomer } from './customer.selectors';
 
@@ -15,6 +15,13 @@ export class CustomerStore {
 
   get customers$(): Observable<Customer[]> {
     return this._customers$;
+  }
+
+  get selected$(): Observable<Customer> {
+    return this.store.select(fromCustomer.selectSelectedCustomer).pipe(
+      tap(console.log),
+      filter(customer => !!customer)
+    );
   }
 
   constructor(private store: Store<CustomerStore>) {
@@ -59,5 +66,9 @@ export class CustomerStore {
 
   public remove(customer: Customer, redirect: UrlTree) {
     this.store.dispatch(CustomerActions.remove({ customer, redirect }));
+  }
+
+  public setSelected(id: number) {
+    this.store.dispatch(CustomerActions.setSelected({ id }));
   }
 }
