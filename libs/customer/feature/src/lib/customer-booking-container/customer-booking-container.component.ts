@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 import { Booking, BookingStore } from '@eternal/booking/data';
 import { CustomerStore } from '@eternal/customer/data';
 import { Customer } from '@eternal/customer/domain';
@@ -10,26 +9,27 @@ import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'eternal-customer-booking-container',
-  template: `<eternal-customer-booking
-    *ngIf="customerBookings$ | async as customerBookings"
-    [customerBookings]="customerBookings"
-  ></eternal-customer-booking>`,
+  template: `
+    <eternal-customer-booking
+      *ngIf="customerBookings$ | async as customerBookings"
+      [customerBookings]="customerBookings"
+    ></eternal-customer-booking>
+  `
 })
 export class CustomerBookingContainerComponent implements OnInit {
+  @Input() customerId: number;
   customerBookings$: Observable<CustomerBooking[]>;
   constructor(
-    private route: ActivatedRoute,
     private customerStore: CustomerStore,
     private userStore: UserStore,
     private bookingStore: BookingStore
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.params.id);
     this.customerBookings$ = combineLatest([
-      this.customerStore.getById(id),
+      this.customerStore.getById(this.customerId),
       this.userStore.user$,
-      this.bookingStore.bookings$,
+      this.bookingStore.bookings$
     ]).pipe(
       map(([customer, user, bookings]) => this.map(customer, user, bookings))
     );
@@ -43,11 +43,11 @@ export class CustomerBookingContainerComponent implements OnInit {
     const isCurrentUser =
       currentUser.fullName === `${customer.firstname} ${customer.name}`;
     return bookings
-      .filter((booking) => booking.customerId === customer.id)
-      .map((booking) => ({
+      .filter(booking => booking.customerId === customer.id)
+      .map(booking => ({
         id: booking.id,
         name: booking.destination,
-        cancelStatus: this.getCancelStatus(isCurrentUser, booking.cancellable),
+        cancelStatus: this.getCancelStatus(isCurrentUser, booking.cancellable)
       }));
   }
 
