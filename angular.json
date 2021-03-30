@@ -1,13 +1,40 @@
 {
   "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
+  },
+  "defaultProject": "eternal",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
   "projects": {
     "eternal": {
       "projectType": "application",
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      },
       "root": "apps/eternal",
       "sourceRoot": "apps/eternal/src",
       "prefix": "eternal",
@@ -42,7 +69,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -80,22 +106,20 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/eternal/tsconfig.app.json",
-              "apps/eternal/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/eternal/**/*"]
+            "lintFilePatterns": [
+              "apps/eternal/src/**/*.ts",
+              "apps/eternal/src/**/*.html"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/eternal"],
           "options": {
             "jestConfig": "apps/eternal/jest.config.js",
-            "tsConfig": "apps/eternal/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/eternal/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       }
@@ -119,27 +143,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": ["apps/eternal-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/eternal-e2e/**/*"]
+            "lintFilePatterns": ["apps/eternal-e2e/**/*.{js,ts}"]
           }
         }
       }
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "analytics": false
-  },
-  "schematics": {
-    "@nrwl/angular:application": {
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
-    }
-  },
-  "defaultProject": "eternal"
+  }
 }
