@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CustomerComponent } from './customer/customer.component';
-import { CustomersComponent } from './customers/customers.component';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { FormlyModule } from '@ngx-formly/core';
-import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
 import { FormlyMaterialModule } from '@ngx-formly/material';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { FormlyMatDatepickerModule } from '@ngx-formly/material/datepicker';
+import { CustomerComponent } from './customer/customer.component';
+import { CustomersComponent } from './customers/customers.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
@@ -27,6 +27,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
     FormlyMaterialModule,
     FormlyMatDatepickerModule
   ],
-  exports: [CustomersComponent, CustomerComponent, WelcomeComponent]
+  exports: [CustomerComponent, CustomersComponent, WelcomeComponent]
 })
-export class UiCustomerModule {}
+export class CustomerUiModule {}

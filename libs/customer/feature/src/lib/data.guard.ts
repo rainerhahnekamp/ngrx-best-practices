@@ -1,35 +1,18 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree
-} from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, UrlTree } from '@angular/router';
+import { CustomerActions, CustomerAppState, fromCustomer } from '@eternal/customer/data';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import {
-  CustomerAppState,
-  CustomerActions,
-  fromCustomer
-} from '@eternal/customer/data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataGuard implements CanActivate {
   constructor(private store: Store<CustomerAppState>) {}
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
+
+  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     this.store.dispatch(CustomerActions.get());
-    return this.store
-      .select(fromCustomer.isLoaded)
-      .pipe(filter(isLoaded => isLoaded));
+    return this.store.select(fromCustomer.isLoaded).pipe(filter((isLoaded) => isLoaded));
   }
 }

@@ -2,13 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {
-  CustomerEffects,
-  customerFeatureKey,
-  DataCustomerModule,
-  reducer
-} from '@eternal/customer/data';
-import { UiCustomerModule } from '@eternal/customer/ui';
+import { CustomerDataModule, CustomerEffects, customerFeatureKey, reducer } from '@eternal/customer/data';
+import { CustomerUiModule } from '@eternal/customer/ui';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { AddContainerComponent } from './add-container/add-container.component';
@@ -19,16 +14,11 @@ import { MockedHttpClient } from './mocked-http-client.service';
 import { WelcomeContainerComponent } from './welcome-container/welcome-container.component';
 
 @NgModule({
-  declarations: [
-    AddContainerComponent,
-    EditContainerComponent,
-    CustomersContainerComponent,
-    WelcomeContainerComponent
-  ],
+  declarations: [AddContainerComponent, EditContainerComponent, CustomersContainerComponent],
   imports: [
     CommonModule,
-    DataCustomerModule,
-    UiCustomerModule,
+    CustomerDataModule,
+    CustomerUiModule,
     HttpClientModule,
     RouterModule.forChild([
       {
@@ -58,4 +48,4 @@ import { WelcomeContainerComponent } from './welcome-container/welcome-container
     }
   ]
 })
-export class CustomerModule {}
+export class CustomerFeatureModule {}
