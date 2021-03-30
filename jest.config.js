@@ -1,3 +1,3 @@
 module.exports = {
-  projects: ['<rootDir>/apps/eternal'],
+  projects: ['<rootDir>/apps/eternal']
 };

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { sortBy } from 'lodash';
+import { sortBy } from 'lodash-es';
 import { Observable, of } from 'rxjs';
-import { delay, tap, map } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 import { Customer } from './customer';
 import { customers as originalCustomers } from './data';
 
@@ -13,20 +13,17 @@ export class MockedHttpClient {
     return this.sortCustomers().pipe(this.logRequest('GET', url));
   }
 
-  post(
-    url: string,
-    customer: Customer
-  ): Observable<{ customers: Customer[]; id: number }> {
+  post(url: string, customer: Customer): Observable<{ customers: Customer[]; id: number }> {
     const nextId = this.getNextId();
     this.customers.push({ ...customer, id: nextId });
     return this.sortCustomers().pipe(
-      map(customers => ({ customers, id: nextId })),
+      map((customers) => ({ customers, id: nextId })),
       this.logRequest('POST', url, customer)
     );
   }
 
   put(url: string, customer: Customer): Observable<Customer[]> {
-    this.customers = this.customers.map(c => {
+    this.customers = this.customers.map((c) => {
       if (c.id === customer.id) {
         return customer;
       }
@@ -37,8 +34,12 @@ export class MockedHttpClient {
 
   delete(url: string): Observable<Customer[]> {
     const id = Number(url.match(/(\d+)$/)[0]);
-    this.customers = this.customers.filter(customer => customer.id !== id);
+    this.customers = this.customers.filter((customer) => customer.id !== id);
     return this.sortCustomers().pipe(this.logRequest('DELETE', url));
+  }
+
+  getNextId() {
+    return Math.max(...this.customers.map((customer) => customer.id)) + 1;
   }
 
   private sortCustomers(): Observable<Customer[]> {
@@ -46,11 +47,11 @@ export class MockedHttpClient {
     return of(customers).pipe();
   }
 
-  private logRequest(httpMethod: string, url: string, body?: any) {
-    return (observable: Observable<any>) =>
+  private logRequest<T>(httpMethod: string, url: string, body?: unknown) {
+    return (observable: Observable<T>) =>
       observable.pipe(
         delay(Math.random() * 1000),
-        tap(response => {
+        tap((response) => {
           console.group('Mocked Http Client');
           console.log(`${httpMethod}: ${url}`);
           if (body) {
@@ -60,9 +61,5 @@ export class MockedHttpClient {
           console.groupEnd();
         })
       );
-  }
-
-  getNextId() {
-    return Math.max(...this.customers.map(customer => customer.id)) + 1;
   }
 }

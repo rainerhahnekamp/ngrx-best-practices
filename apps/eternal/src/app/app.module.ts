@@ -13,13 +13,13 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { CustomerModule } from './customer/customer.module';
 import { HolidaysModule } from './holidays/holidays.module';
-import { HomeComponent } from './home/home.component';
-import { FormlyModule } from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
+import { HomeComponent } from './home.component';
 
 registerLocaleData(localeDe, 'de-AT');
 
@@ -37,27 +37,27 @@ registerLocaleData(localeDe, 'de-AT');
       {
         path: '',
         pathMatch: 'full',
-        component: HomeComponent,
-      },
+        component: HomeComponent
+      }
     ]),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     ReactiveFormsModule,
     FormlyModule.forRoot({ extras: { lazyRender: true } }),
-    FormlyMaterialModule,
+    FormlyMaterialModule
   ],
   providers: [
     {
       provide: MAT_DATE_LOCALE,
-      useValue: 'de-AT',
+      useValue: 'de-AT'
     },
     { provide: LOCALE_ID, useValue: 'de-AT' },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: 'outline' },
-    },
+      useValue: { appearance: 'outline' }
+    }
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
