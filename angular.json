@@ -48,14 +48,8 @@
             "polyfills": "apps/eternal/src/polyfills.ts",
             "tsConfig": "apps/eternal/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/eternal/src/favicon.ico",
-              "apps/eternal/src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "apps/eternal/src/styles.scss"
-            ],
+            "assets": ["apps/eternal/src/favicon.ico", "apps/eternal/src/assets"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/eternal/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -108,10 +102,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/eternal/src/**/*.ts",
-              "apps/eternal/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/eternal/src/**/*.ts", "apps/eternal/src/**/*.html"]
           }
         },
         "test": {
