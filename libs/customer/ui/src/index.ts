@@ -1,1 +1,1 @@
-export * from './lib/ui-customer.module';
+export * from './lib/customer-ui.module';

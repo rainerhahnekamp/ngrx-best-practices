@@ -3,12 +3,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
+  CustomerDataModule,
   CustomerEffects,
   customerFeatureKey,
-  DataCustomerModule,
-  reducer
+  reducer,
 } from '@eternal/customer/data';
-import { UiCustomerModule } from '@eternal/customer/ui';
+import { CustomerUiModule } from '@eternal/customer/ui';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { AddContainerComponent } from './add-container/add-container.component';
@@ -21,12 +21,12 @@ import { MockedHttpClient } from './mocked-http-client.service';
   declarations: [
     AddContainerComponent,
     EditContainerComponent,
-    CustomersContainerComponent
+    CustomersContainerComponent,
   ],
   imports: [
     CommonModule,
-    DataCustomerModule,
-    UiCustomerModule,
+    CustomerDataModule,
+    CustomerUiModule,
     HttpClientModule,
     RouterModule.forChild([
       {
@@ -35,24 +35,24 @@ import { MockedHttpClient } from './mocked-http-client.service';
         children: [
           {
             path: '',
-            component: CustomersContainerComponent
+            component: CustomersContainerComponent,
           },
           { path: 'new', component: AddContainerComponent },
           {
             path: ':id',
-            component: EditContainerComponent
-          }
-        ]
-      }
+            component: EditContainerComponent,
+          },
+        ],
+      },
     ]),
     StoreModule.forFeature(customerFeatureKey, reducer),
-    EffectsModule.forFeature([CustomerEffects])
+    EffectsModule.forFeature([CustomerEffects]),
   ],
   providers: [
     {
       provide: HttpClient,
-      useClass: MockedHttpClient
-    }
-  ]
+      useClass: MockedHttpClient,
+    },
+  ],
 })
-export class CustomerModule {}
+export class CustomerFeatureModule {}
