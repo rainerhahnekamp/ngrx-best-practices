@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { formly } from 'ngx-formly-helpers';
@@ -21,10 +20,8 @@ export class CustomerComponent implements OnInit {
   formGroup = new FormGroup({});
   customer$: Observable<Customer>;
   fields: FormlyFieldConfig[];
-  constructor(
-    private store: Store<CustomerAppState>,
-    private route: ActivatedRoute
-  ) {}
+
+  constructor(private store: Store<CustomerAppState>, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.fields = [
@@ -43,12 +40,10 @@ export class CustomerComponent implements OnInit {
         birthdate: null
       });
     } else {
-      this.customer$ = this.store
-        .select(fromCustomer.selectById, Number(this.route.snapshot.params.id))
-        .pipe(
-          filter(customer => !!customer),
-          map(customer => ({ ...customer }))
-        );
+      this.customer$ = this.store.select(fromCustomer.selectById, Number(this.route.snapshot.params.id)).pipe(
+        filter((customer) => !!customer),
+        map((customer) => ({ ...customer }))
+      );
     }
   }
 
