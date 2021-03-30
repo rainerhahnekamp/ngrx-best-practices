@@ -1,3 +1,5 @@
+import { registerLocaleData } from '@angular/common';
+import localeDe from '@angular/common/locales/de-AT';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,17 +10,16 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { CustomerFeatureModule } from '@eternal/customer/feature';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FormlyModule } from '@ngx-formly/core';
+import { FormlyMaterialModule } from '@ngx-formly/material';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { HolidaysModule } from './holidays/holidays.module';
-import { HomeComponent } from './home/home.component';
-import { registerLocaleData } from '@angular/common';
-import localeDe from '@angular/common/locales/de-AT';
-import { CustomerModule } from '@eternal/customer/feature';
+import { HomeComponent } from './home.component';
 
 registerLocaleData(localeDe, 'de-AT');
 
@@ -27,7 +28,7 @@ registerLocaleData(localeDe, 'de-AT');
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CustomerModule,
+    CustomerFeatureModule,
     MatButtonModule,
     MatSidenavModule,
     MatToolbarModule,
@@ -43,7 +44,8 @@ registerLocaleData(localeDe, 'de-AT');
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     ReactiveFormsModule,
-    FormlyModule.forRoot()
+    FormlyModule.forRoot({ extras: { lazyRender: true } }),
+    FormlyMaterialModule
   ],
   providers: [
     {

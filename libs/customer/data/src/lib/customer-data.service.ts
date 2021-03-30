@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Customer } from '@eternal/customer/domain';
-import { fromCustomer } from './customer.selectors';
-import { Observable } from 'rxjs';
-import { CustomerActions } from './customer.actions';
-import { map } from 'rxjs/operators';
 import { UrlTree } from '@angular/router';
+import { Customer } from '@eternal/customer/model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { CustomerActions } from './customer.actions';
+import { fromCustomer } from './customer.selectors';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerStore {
+export class CustomerData {
   private isGetDispatched = false;
+
+  constructor(private store: Store<CustomerData>) {}
 
   get customers$(): Observable<Customer[]> {
     this.checkForGet();
@@ -22,8 +24,6 @@ export class CustomerStore {
     this.checkForGet();
     return this.store.select(fromCustomer.isLoaded);
   }
-
-  constructor(private store: Store<CustomerStore>) {}
 
   public newCustomer(): Customer {
     return {
@@ -36,9 +36,7 @@ export class CustomerStore {
   }
 
   public getById(id: number) {
-    return this.store
-      .select(fromCustomer.selectById, id)
-      .pipe(map(customer => ({ ...customer })));
+    return this.store.select(fromCustomer.selectById, id).pipe(map((customer) => ({ ...customer })));
   }
 
   public add(customer: Customer, redirectSupplier: (id: number) => UrlTree) {

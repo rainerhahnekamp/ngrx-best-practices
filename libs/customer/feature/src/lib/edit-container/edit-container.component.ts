@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, UrlTree } from '@angular/router';
-import { CustomerStore } from '@eternal/customer/data';
-import { Customer } from '@eternal/customer/domain';
+import { CustomerData } from '@eternal/customer/data';
+import { Customer } from '@eternal/customer/model';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -17,11 +17,8 @@ import { Observable } from 'rxjs';
 export class EditContainerComponent implements OnInit {
   customer$: Observable<Customer>;
   private redirect: UrlTree;
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private customerStore: CustomerStore
-  ) {}
+
+  constructor(private route: ActivatedRoute, private router: Router, private customerStore: CustomerData) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.params.id);

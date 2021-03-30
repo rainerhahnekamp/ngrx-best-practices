@@ -1,6 +1,6 @@
-import { createReducer, Action, on } from '@ngrx/store';
+import { Customer } from '@eternal/customer/model';
+import { Action, createReducer, on } from '@ngrx/store';
 import { CustomerActions } from './customer.actions';
-import { Customer } from '@eternal/customer/domain';
 
 export const customerFeatureKey = 'Customer';
 
@@ -26,7 +26,7 @@ export const initialState: State = {
 
 const CustomerReducer = createReducer<State>(
   initialState,
-  on(CustomerActions.load, state => ({
+  on(CustomerActions.load, (state) => ({
     ...state,
     loadStatus: LoadStatus.LOADING
   })),
