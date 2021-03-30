@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Customer } from '@eternal/customer/domain';
+import { Customer } from '@eternal/customer/model';
 import { FormlyFieldConfig } from '@ngx-formly/core';
 import { formly } from 'ngx-formly-helpers';
 import { countries } from '../countries';
@@ -26,7 +26,6 @@ export class CustomerComponent implements OnInit {
   @Output() save = new EventEmitter<Customer>();
   @Output() remove = new EventEmitter<Customer>();
   fields: FormlyFieldConfig[];
-  constructor() {}
 
   ngOnInit() {
     this.fields = [
