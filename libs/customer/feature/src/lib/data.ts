@@ -1,4 +1,4 @@
-import { Customer } from '@eternal/customer/domain';
+import { Customer } from '@eternal/customer/model';
 
 export const customers: Customer[] = [
   {

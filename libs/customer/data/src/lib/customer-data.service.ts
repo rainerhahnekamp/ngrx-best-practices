@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UrlTree } from '@angular/router';
-import { Customer } from '@eternal/customer/domain';
+import { Customer } from '@eternal/customer/model';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -10,21 +10,18 @@ import { fromCustomer } from './customer.selectors';
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerStore {
+export class CustomerData {
+  constructor(private store: Store<CustomerData>) {
+    this._customers$ = combineLatest([this.store.select(fromCustomer.selectCurrent), this.store.select(fromCustomer.isLoaded)]).pipe(
+      filter(([, isLoaded]) => isLoaded),
+      map(([customers]) => customers)
+    );
+  }
+
   private _customers$: Observable<Customer[]>;
 
   get customers$(): Observable<Customer[]> {
     return this._customers$;
-  }
-
-  constructor(private store: Store<CustomerStore>) {
-    this._customers$ = combineLatest([
-      this.store.select(fromCustomer.selectCurrent),
-      this.store.select(fromCustomer.isLoaded)
-    ]).pipe(
-      filter(([, isLoaded]) => isLoaded),
-      map(([customers]) => customers)
-    );
   }
 
   public newCustomer(): Customer {
@@ -40,8 +37,8 @@ export class CustomerStore {
   public getById(id: number) {
     this.store.dispatch(CustomerActions.getById({ id }));
     return this.store.select(fromCustomer.selectById, id).pipe(
-      filter(customer => !!customer),
-      map(customer => ({ ...customer }))
+      filter((customer) => !!customer),
+      map((customer) => ({ ...customer }))
     );
   }
 

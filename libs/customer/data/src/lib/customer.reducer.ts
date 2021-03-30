@@ -1,7 +1,7 @@
-import { createReducer, Action, on } from '@ngrx/store';
+import { Customer } from '@eternal/customer/model';
+import { Action, createReducer, on } from '@ngrx/store';
 import { fromPairs, omit } from 'lodash';
-import { CustomerActions, Context } from './customer.actions';
-import { Customer } from '@eternal/customer/domain';
+import { Context, CustomerActions } from './customer.actions';
 
 export const customerFeatureKey = 'Customer';
 
@@ -33,14 +33,10 @@ const CustomerReducer = createReducer<State>(
   on(CustomerActions.loaded, (state, { customers }) => ({
     ...state,
     isLoaded: true,
-    currentCustomerIds: customers.map(customer => customer.id),
+    currentCustomerIds: customers.map((customer) => customer.id),
     totalCustomers: {
       ...state.totalCustomers,
-      ...fromPairs(
-        customers
-          .filter(({ id }) => !state.totalCustomers[id])
-          .map(customer => [customer.id, customer])
-      )
+      ...fromPairs(customers.filter(({ id }) => !state.totalCustomers[id]).map((customer) => [customer.id, customer]))
     }
   })),
   on(CustomerActions.loadedById, (state, { customer }) => ({
@@ -50,18 +46,14 @@ const CustomerReducer = createReducer<State>(
       ...fromPairs([[customer.id, customer]])
     }
   })),
-  on(CustomerActions.added, state => ({
+  on(CustomerActions.added, (state) => ({
     ...state,
     context: null
   })),
   on(CustomerActions.updated, (state, { customer }) => ({
     ...state,
     context: null,
-    totalCustomers: fromPairs(
-      Object.entries(state.totalCustomers).map(([id, c]) =>
-        c.id === customer.id ? [id, customer] : [id, c]
-      )
-    )
+    totalCustomers: fromPairs(Object.entries(state.totalCustomers).map(([id, c]) => (c.id === customer.id ? [id, customer] : [id, c])))
   })),
   on(CustomerActions.removed, (state, { customer }) => ({
     ...state,

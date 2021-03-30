@@ -1,6 +1,6 @@
-import { createAction, props } from '@ngrx/store';
-import { Customer } from '@eternal/customer/domain';
 import { UrlTree } from '@angular/router';
+import { Customer } from '@eternal/customer/model';
+import { createAction, props } from '@ngrx/store';
 
 export interface Context {
   page: number;
@@ -10,17 +10,11 @@ export interface Context {
 
 const get = createAction('[Customer] Get', props<{ context: Context }>());
 const load = createAction('[Customer] Load', props<{ context: Context }>());
-const loaded = createAction(
-  '[Customer] Loaded',
-  props<{ customers: Customer[] }>()
-);
+const loaded = createAction('[Customer] Loaded', props<{ customers: Customer[] }>());
 
 const getById = createAction('[Customer] Get By Id', props<{ id: number }>());
 const loadById = createAction('[Customer] Load By Id', props<{ id: number }>());
-const loadedById = createAction(
-  '[Customer] Loaded By Id',
-  props<{ customer: Customer }>()
-);
+const loadedById = createAction('[Customer] Loaded By Id', props<{ customer: Customer }>());
 const add = createAction(
   '[Customer] Add',
   props<{
@@ -35,23 +29,11 @@ const added = createAction(
   }>()
 );
 
-const update = createAction(
-  '[Customer] Update',
-  props<{ customer: Customer; redirect: UrlTree }>()
-);
-const updated = createAction(
-  '[Customer] Updated',
-  props<{ customer: Customer; redirect: UrlTree }>()
-);
+const update = createAction('[Customer] Update', props<{ customer: Customer; redirect: UrlTree }>());
+const updated = createAction('[Customer] Updated', props<{ customer: Customer; redirect: UrlTree }>());
 
-const remove = createAction(
-  '[Customer] Remove',
-  props<{ customer: Customer; redirect: UrlTree }>()
-);
-const removed = createAction(
-  '[CUSTOMER] Removed',
-  props<{ customer: Customer; redirect: UrlTree }>()
-);
+const remove = createAction('[Customer] Remove', props<{ customer: Customer; redirect: UrlTree }>());
+const removed = createAction('[CUSTOMER] Removed', props<{ customer: Customer; redirect: UrlTree }>());
 
 export const CustomerActions = {
   get,
