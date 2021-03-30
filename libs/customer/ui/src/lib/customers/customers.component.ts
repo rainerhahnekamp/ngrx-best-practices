@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Customer } from '@eternal/customer/domain';
+import { Customer } from '@eternal/customer/model';
 
 @Component({
   selector: 'eternal-customers',
@@ -8,6 +8,4 @@ import { Customer } from '@eternal/customer/domain';
 })
 export class CustomersComponent {
   @Input() customers: Customer[];
-
-  constructor() {}
 }

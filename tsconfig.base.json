@@ -18,7 +18,7 @@
       "@eternal/customer/feature": ["libs/customer/feature/src/index.ts"],
       "@eternal/customer/ui": ["libs/customer/ui/src/index.ts"],
       "@eternal/customer/data": ["libs/customer/data/src/index.ts"],
-      "@eternal/customer/model": ["libs/customer/model/index.ts"]
+      "@eternal/customer/model": ["libs/customer/model/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

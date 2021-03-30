@@ -31,19 +31,15 @@ $palette: (
     A100: #000000,
     A200: #000000,
     A400: #000000,
-    A700: #000000,
-  ),
+    A700: #000000
+  )
 );
 $main-color: mat-color($palette, 500);
 
 $candy-app-primary: mat-palette($palette);
 $candy-app-accent: mat-palette($mat-pink, A200, A100, A400);
 $candy-app-warn: mat-palette($mat-red);
-$candy-app-theme: mat-light-theme(
-    $candy-app-primary,
-    $candy-app-accent,
-    $candy-app-warn
-);
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
 @include angular-material-theme($candy-app-theme);
 
 html,

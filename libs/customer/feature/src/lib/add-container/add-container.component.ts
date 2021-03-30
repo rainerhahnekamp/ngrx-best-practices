@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CustomerActions, CustomerAppState } from '@eternal/customer/data';
+import { Customer } from '@eternal/customer/model';
 import { Store } from '@ngrx/store';
-import { CustomerAppState, CustomerActions } from '@eternal/customer/data';
-import { Customer } from '@eternal/customer/domain';
 
 @Component({
-  template: `
-    <eternal-customer
-      [customer]="customer"
-      (save)="add($event)"
-    ></eternal-customer>
-  `
+  template: ` <eternal-customer [customer]="customer" (save)="add($event)"></eternal-customer> `
 })
 export class AddContainerComponent {
   public customer = {
