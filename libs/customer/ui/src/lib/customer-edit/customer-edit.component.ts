@@ -1,14 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Customer } from '@eternal/customer/domain';
-import { formly } from 'ngx-formly-helpers';
-import { FormlyFieldConfig } from '@ngx-formly/core';
-import { countries } from '../countries';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Customer } from '@eternal/customer/model';
+import { FormlyFieldConfig } from '@ngx-formly/core';
+import { formly } from 'ngx-formly-helpers';
+import { countries } from '../countries';
 
 @Component({
   selector: 'eternal-customer-edit',
   templateUrl: './customer-edit.component.html',
-  styleUrls: ['./customer-edit.component.scss'],
+  styleUrls: ['./customer-edit.component.scss']
 })
 export class CustomerEditComponent implements OnInit {
   @Input() customer: Customer;
@@ -18,15 +18,13 @@ export class CustomerEditComponent implements OnInit {
   formGroup = new FormGroup({});
   fields: FormlyFieldConfig[];
 
-  constructor() {}
-
   ngOnInit(): void {
     this.fields = [
       formly.requiredText('firstname', 'Firstname'),
       formly.requiredText('name', 'Name'),
       formly.requiredSelect('country', 'Country', countries),
       formly.requiredDate('birthdate', 'Birthdate'),
-      formly.hidden('bookings'),
+      formly.hidden('bookings')
     ];
   }
 

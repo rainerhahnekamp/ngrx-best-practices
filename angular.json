@@ -1,13 +1,40 @@
 {
   "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": false
+  },
+  "defaultProject": "eternal",
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
   "projects": {
     "eternal": {
       "projectType": "application",
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      },
       "root": "apps/eternal",
       "sourceRoot": "apps/eternal/src",
       "prefix": "eternal",
@@ -21,14 +48,8 @@
             "polyfills": "apps/eternal/src/polyfills.ts",
             "tsConfig": "apps/eternal/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/eternal/src/favicon.ico",
-              "apps/eternal/src/assets"
-            ],
-            "styles": [
-              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "apps/eternal/src/styles.scss"
-            ],
+            "assets": ["apps/eternal/src/favicon.ico", "apps/eternal/src/assets"],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/eternal/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -42,7 +63,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -80,22 +100,17 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "apps/eternal/tsconfig.app.json",
-              "apps/eternal/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/eternal/**"]
+            "lintFilePatterns": ["apps/eternal/src/**/*.ts", "apps/eternal/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/eternal"],
           "options": {
             "jestConfig": "apps/eternal/jest.config.js",
-            "tsConfig": "apps/eternal/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/eternal/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       }
@@ -119,10 +134,9 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": ["apps/eternal-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/eternal-e2e/**"]
+            "lintFilePatterns": ["apps/eternal-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -134,54 +148,20 @@
       "prefix": "eternal",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/customer/feature/tsconfig.lib.json",
-              "libs/customer/feature/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/customer/feature/**"]
+            "lintFilePatterns": ["libs/customer/feature/src/**/*.ts", "libs/customer/feature/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/customer/feature"],
           "options": {
             "jestConfig": "libs/customer/feature/jest.config.js",
-            "tsConfig": "libs/customer/feature/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/customer/feature/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
-      },
-      "schematics": {}
-    },
-    "customer-data": {
-      "projectType": "library",
-      "root": "libs/customer/data",
-      "sourceRoot": "libs/customer/data/src",
-      "prefix": "eternal",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/customer/data/tsconfig.lib.json",
-              "libs/customer/data/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/customer/data/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/customer/data/jest.config.js",
-            "tsConfig": "libs/customer/data/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/customer/data/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {}
+      }
     },
     "customer-ui": {
       "projectType": "library",
@@ -190,128 +170,130 @@
       "prefix": "eternal",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/customer/ui/tsconfig.lib.json",
-              "libs/customer/ui/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/customer/ui/**"]
+            "lintFilePatterns": ["libs/customer/ui/src/**/*.ts", "libs/customer/ui/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/customer/ui"],
           "options": {
             "jestConfig": "libs/customer/ui/jest.config.js",
-            "tsConfig": "libs/customer/ui/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/customer/ui/src/test-setup.ts"
+            "passWithNoTests": true
           }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
         }
       }
     },
-    "booking-data": {
+    "customer-data": {
       "projectType": "library",
-      "root": "libs/booking/data",
-      "sourceRoot": "libs/booking/data/src",
+      "root": "libs/customer/data",
+      "sourceRoot": "libs/customer/data/src",
       "prefix": "eternal",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/booking/data/tsconfig.lib.json",
-              "libs/booking/data/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/booking/data/**"]
+            "lintFilePatterns": ["libs/customer/data/src/**/*.ts", "libs/customer/data/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/customer/data"],
           "options": {
-            "jestConfig": "libs/booking/data/jest.config.js",
-            "tsConfig": "libs/booking/data/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/booking/data/src/test-setup.ts"
+            "jestConfig": "libs/customer/data/jest.config.js",
+            "passWithNoTests": true
           }
         }
-      },
-      "schematics": {}
+      }
     },
-    "user-data": {
+    "customer-model": {
       "projectType": "library",
-      "root": "libs/user/data",
-      "sourceRoot": "libs/user/data/src",
+      "root": "libs/customer/model",
+      "sourceRoot": "libs/customer/model/src",
       "prefix": "eternal",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/user/data/tsconfig.lib.json",
-              "libs/user/data/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/user/data/**"]
+            "lintFilePatterns": ["libs/customer/model/src/**/*.ts", "libs/customer/model/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/customer/model"],
           "options": {
-            "jestConfig": "libs/user/data/jest.config.js",
-            "tsConfig": "libs/user/data/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/user/data/src/test-setup.ts"
+            "jestConfig": "libs/customer/model/jest.config.js",
+            "passWithNoTests": true
           }
         }
-      },
-      "schematics": {}
+      }
     },
-    "review-data": {
+    "booking-api": {
       "projectType": "library",
-      "root": "libs/review/data",
-      "sourceRoot": "libs/review/data/src",
+      "root": "libs/booking/api",
+      "sourceRoot": "libs/booking/api/src",
       "prefix": "eternal",
       "architect": {
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@nrwl/linter:eslint",
           "options": {
-            "tsConfig": [
-              "libs/review/data/tsconfig.lib.json",
-              "libs/review/data/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/review/data/**"]
+            "lintFilePatterns": ["libs/booking/api/src/**/*.ts", "libs/booking/api/src/**/*.html"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/booking/api"],
           "options": {
-            "jestConfig": "libs/review/data/jest.config.js",
-            "tsConfig": "libs/review/data/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/review/data/src/test-setup.ts"
+            "jestConfig": "libs/booking/api/jest.config.js",
+            "passWithNoTests": true
           }
         }
-      },
-      "schematics": {}
+      }
+    },
+    "user-api": {
+      "projectType": "library",
+      "root": "libs/user/api",
+      "sourceRoot": "libs/user/api/src",
+      "prefix": "eternal",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/user/api/src/**/*.ts", "libs/user/api/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/user/api"],
+          "options": {
+            "jestConfig": "libs/user/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "review-api": {
+      "projectType": "library",
+      "root": "libs/review/api",
+      "sourceRoot": "libs/review/api/src",
+      "prefix": "eternal",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/review/api/src/**/*.ts", "libs/review/api/src/**/*.html"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/review/api"],
+          "options": {
+            "jestConfig": "libs/review/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "analytics": false
-  },
-  "schematics": {
-    "@nrwl/angular:application": {
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "cypress"
-    },
-    "@nrwl/angular:library": {
-      "unitTestRunner": "jest"
-    }
-  },
-  "defaultProject": "eternal"
+  }
 }

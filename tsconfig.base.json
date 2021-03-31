@@ -1,0 +1,28 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@eternal/customer/feature": ["libs/customer/feature/src/index.ts"],
+      "@eternal/customer/ui": ["libs/customer/ui/src/index.ts"],
+      "@eternal/customer/data": ["libs/customer/data/src/index.ts"],
+      "@eternal/customer/model": ["libs/customer/model/src/index.ts"],
+      "@eternal/booking/api": ["libs/booking/api/src/index.ts"],
+      "@eternal/user/api": ["libs/user/api/src/index.ts"],
+      "@eternal/review/api": ["libs/review/api/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
