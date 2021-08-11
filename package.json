@@ -42,15 +42,15 @@
     "@ngrx/effects": "^12.3.0",
     "@ngrx/store": "^12.3.0",
     "@ngrx/store-devtools": "^12.3.0",
+    "@ngx-formly/core": "^5.0.0",
+    "@ngx-formly/material": "^5.0.0",
     "@nrwl/angular": "12.6.6",
     "lodash-es": "^4.17.21",
     "ngx-formly-helpers": "^0.9.4",
     "object-hash": "^2.2.0",
-    "rxjs": "~6.6.0",
+    "rxjs": "^7.3.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4",
-    "@ngx-formly/core": "^5.0.0",
-    "@ngx-formly/material": "^5.0.0"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.1.0",

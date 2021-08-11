@@ -43,9 +43,11 @@ export class CustomerComponent implements OnInit {
       });
     } else {
       this.customer$ = this.store
-        .select(fromCustomer.selectById(Number(this.route.snapshot.params.id)))
+        .select(
+          fromCustomer.selectById(Number(this.route.snapshot.params.id || ''))
+        )
         .pipe(
-          filter((customer) => !!customer),
+          this.verifyCustomer,
           map((customer) => ({ ...customer }))
         );
     }
@@ -65,5 +67,15 @@ export class CustomerComponent implements OnInit {
     if (confirm(`Really delete ${customer}?`)) {
       this.store.dispatch(CustomerActions.remove({ customer }));
     }
+  }
+
+  private verifyCustomer(customer$: Observable<undefined | Customer>) {
+    function customerGuard(
+      customer: undefined | Customer
+    ): customer is Customer {
+      return customer !== undefined;
+    }
+
+    return customer$.pipe(filter(customerGuard));
   }
 }
