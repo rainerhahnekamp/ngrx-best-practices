@@ -1,10 +1,130 @@
 {
   "version": 1,
-  "cli": {
-    "defaultCollection": "@nrwl/angular",
-    "analytics": false
+  "projects": {
+    "eternal": {
+      "projectType": "application",
+      "root": "apps/eternal",
+      "sourceRoot": "apps/eternal/src",
+      "prefix": "eternal",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/eternal",
+            "index": "apps/eternal/src/index.html",
+            "main": "apps/eternal/src/main.ts",
+            "polyfills": "apps/eternal/src/polyfills.ts",
+            "tsConfig": "apps/eternal/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/eternal/src/favicon.ico",
+              "apps/eternal/src/assets"
+            ],
+            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/eternal/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/eternal/src/environments/environment.ts",
+                  "with": "apps/eternal/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "eternal:build:production"
+            },
+            "development": {
+              "browserTarget": "eternal:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "eternal:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/eternal/src/**/*.ts",
+              "apps/eternal/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/eternal"],
+          "options": {
+            "jestConfig": "apps/eternal/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "eternal-e2e": {
+      "root": "apps/eternal-e2e",
+      "sourceRoot": "apps/eternal-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/eternal-e2e/cypress.json",
+            "tsConfig": "apps/eternal-e2e/tsconfig.e2e.json",
+            "devServerTarget": "eternal:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "eternal:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/eternal-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
   },
-  "defaultProject": "eternal",
+  "cli": {
+    "analytics": false,
+    "defaultCollection": "@nrwl/angular"
+  },
   "schematics": {
     "@nrwl/angular": {
       "application": {
@@ -32,114 +152,5 @@
       "style": "scss"
     }
   },
-  "projects": {
-    "eternal": {
-      "projectType": "application",
-      "root": "apps/eternal",
-      "sourceRoot": "apps/eternal/src",
-      "prefix": "eternal",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/eternal",
-            "index": "apps/eternal/src/index.html",
-            "main": "apps/eternal/src/main.ts",
-            "polyfills": "apps/eternal/src/polyfills.ts",
-            "tsConfig": "apps/eternal/tsconfig.app.json",
-            "aot": true,
-            "assets": ["apps/eternal/src/favicon.ico", "apps/eternal/src/assets"],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/eternal/src/styles.scss"],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/eternal/src/environments/environment.ts",
-                  "with": "apps/eternal/src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "eternal:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "eternal:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "eternal:build"
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/eternal/src/**/*.ts", "apps/eternal/src/**/*.html"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/eternal"],
-          "options": {
-            "jestConfig": "apps/eternal/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
-    "eternal-e2e": {
-      "root": "apps/eternal-e2e",
-      "sourceRoot": "apps/eternal-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/eternal-e2e/cypress.json",
-            "tsConfig": "apps/eternal-e2e/tsconfig.e2e.json",
-            "devServerTarget": "eternal:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "eternal:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/eternal-e2e/**/*.{js,ts}"]
-          }
-        }
-      }
-    }
-  }
+  "defaultProject": "eternal"
 }

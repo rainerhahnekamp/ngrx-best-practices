@@ -4,11 +4,15 @@ import { Customer } from '../customer';
 
 const selectCustomerState = createFeatureSelector<State>(customerFeatureKey);
 
-const selectAll = createSelector(selectCustomerState, state => state.customers);
-
-const selectById = createSelector(selectAll, (state: Customer[], id: number) =>
-  state.find(p => p.id === id)
+const selectAll = createSelector(
+  selectCustomerState,
+  (state) => state.customers
 );
+
+const selectById = (id: number) =>
+  createSelector(selectAll, (state: Customer[]) =>
+    state.find((p) => p.id === id)
+  );
 
 const selectLoadStatus = createSelector(
   selectCustomerState,

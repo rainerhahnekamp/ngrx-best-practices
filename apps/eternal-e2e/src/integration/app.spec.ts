@@ -8,6 +8,6 @@ describe('eternal', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Unforgettable Holidays');
+    getGreeting().contains('Welcome to eternal!');
   });
 });

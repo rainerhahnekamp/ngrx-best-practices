@@ -14,7 +14,7 @@ import { Customer } from '../customer';
 
 @Component({
   templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.scss']
+  styleUrls: ['./customer.component.scss'],
 })
 export class CustomerComponent implements OnInit {
   formGroup = new FormGroup({});
@@ -35,14 +35,18 @@ export class CustomerComponent implements OnInit {
         id: 0,
         firstname: '',
         name: '',
-        country: null,
-        birthdate: null
+        country: '',
+        birthdate: '',
       });
     } else {
-      this.customer$ = this.store.select(fromCustomer.selectById, Number(this.route.snapshot.params.id)).pipe(
-        filter((customer) => !!customer),
-        map((customer) => ({ ...customer }))
-      );
+      this.customer$ = this.store
+        .select(
+          fromCustomer.selectById(Number(this.route.snapshot.params.id || ''))
+        )
+        .pipe(
+          this.verifyCustomer,
+          map((customer) => ({ ...customer }))
+        );
     }
   }
 
@@ -60,5 +64,15 @@ export class CustomerComponent implements OnInit {
     if (confirm(`Really delete ${customer}?`)) {
       this.store.dispatch(CustomerActions.remove({ customer }));
     }
+  }
+
+  private verifyCustomer(customer$: Observable<undefined | Customer>) {
+    function customerGuard(
+      customer: undefined | Customer
+    ): customer is Customer {
+      return customer !== undefined;
+    }
+
+    return customer$.pipe(filter(customerGuard));
   }
 }

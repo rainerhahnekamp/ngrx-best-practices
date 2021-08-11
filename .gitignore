@@ -1,34 +1,39 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**
-!**/src/test/**
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
 .project
-.settings
-.springBeans
-.sts4-cache
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
 
-### VS Code ###
-.vscode/
-
-node_modules
-
+# System Files
+.DS_Store
+Thumbs.db
