@@ -18,18 +18,20 @@ import { Customer } from '../customer';
 })
 export class CustomerComponent implements OnInit {
   formGroup = new FormGroup({});
-  customer$: Observable<Customer>;
-  fields: FormlyFieldConfig[];
+  customer$: Observable<Customer> | undefined;
+  fields: FormlyFieldConfig[] = [
+    formly.requiredText('firstname', 'Firstname'),
+    formly.requiredText('name', 'Name'),
+    formly.requiredSelect('country', 'Country', countries),
+    formly.requiredDate('birthdate', 'Birthdate'),
+  ];
 
-  constructor(private store: Store<CustomerAppState>, private route: ActivatedRoute) {}
+  constructor(
+    private store: Store<CustomerAppState>,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.fields = [
-      formly.requiredText('firstname', 'Firstname'),
-      formly.requiredText('name', 'Name'),
-      formly.requiredSelect('country', 'Country', countries),
-      formly.requiredDate('birthdate', 'Birthdate')
-    ];
     if (this.route.snapshot.data.mode === 'new') {
       this.customer$ = of({
         id: 0,

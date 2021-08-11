@@ -10,12 +10,8 @@ import { Store } from '@ngrx/store';
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss']
 })
-export class CustomersComponent implements OnInit {
-  customers$: Observable<Customer[]>;
+export class CustomersComponent  {
+  customers$ = this.store.select(fromCustomer.selectAll);
 
-  constructor(private store: Store<CustomerAppState>) {}
-
-  ngOnInit() {
-    this.customers$ = this.store.select(fromCustomer.selectAll);
-  }
+  constructor(private store: Store) {}
 }
