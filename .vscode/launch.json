@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "jest",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/@angular/cli/bin/ng",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "test",
+        "--testPathPattern=${fileBasenameNoExtension}",
+        "--runInBand"
+      ],
+      "console": "internalConsole",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true
+    }
+  ]
+}

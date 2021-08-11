@@ -13,7 +13,10 @@ export class MockedHttpClient {
     return this.sortCustomers().pipe(this.logRequest('GET', url));
   }
 
-  post(url: string, customer: Customer): Observable<{ customers: Customer[]; id: number }> {
+  post(
+    url: string,
+    customer: Customer
+  ): Observable<{ customers: Customer[]; id: number }> {
     const nextId = this.getNextId();
     this.customers.push({ ...customer, id: nextId });
     return this.sortCustomers().pipe(
@@ -33,7 +36,12 @@ export class MockedHttpClient {
   }
 
   delete(url: string): Observable<Customer[]> {
-    const id = Number(url.match(/(\d+)$/)[0]);
+    const match = url.match(/(\d+)$/);
+    if (!match) {
+      throw new Error('delete request is missing an id');
+    }
+
+    const id = Number(match[0]);
     this.customers = this.customers.filter((customer) => customer.id !== id);
     return this.sortCustomers().pipe(this.logRequest('DELETE', url));
   }
