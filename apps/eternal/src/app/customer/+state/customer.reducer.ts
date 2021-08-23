@@ -1,17 +1,11 @@
+import { Action, createReducer, on } from '@ngrx/store';
 import { Customer } from '../customer';
-import { createReducer, Action, on } from '@ngrx/store';
 import { CustomerActions } from './customer.actions';
 
 export const customerFeatureKey = 'Customer';
 
-export enum LoadStatus {
-  NOT_LOADED,
-  LOADING,
-  LOADED
-}
-
 export interface State {
-  loadStatus: LoadStatus;
+  loadStatus: 'NOT_LOADED' | 'LOADING' | 'LOADED';
   customers: Customer[];
 }
 
@@ -20,32 +14,32 @@ export interface CustomerAppState {
 }
 
 export const initialState: State = {
-  loadStatus: LoadStatus.NOT_LOADED,
-  customers: []
+  loadStatus: 'NOT_LOADED',
+  customers: [],
 };
 
 const CustomerReducer = createReducer<State>(
   initialState,
-  on(CustomerActions.load, state => ({
+  on(CustomerActions.load, (state) => ({
     ...state,
-    loadStatus: LoadStatus.LOADING
+    loadStatus: 'LOADING',
   })),
   on(CustomerActions.loaded, (state, { customers }) => ({
     ...state,
-    loadStatus: LoadStatus.LOADED,
-    customers
+    loadStatus: 'LOADED',
+    customers,
   })),
   on(CustomerActions.added, (state, { customers }) => ({
     ...state,
-    customers
+    customers,
   })),
   on(CustomerActions.updated, (state, { customers }) => ({
     ...state,
-    customers
+    customers,
   })),
   on(CustomerActions.removed, (state, { customers }) => ({
     ...state,
-    customers
+    customers,
   }))
 );
 

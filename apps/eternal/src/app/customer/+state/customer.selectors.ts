@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { customerFeatureKey, State, LoadStatus } from './customer.reducer';
 import { Customer } from '../customer';
+import { customerFeatureKey, State } from './customer.reducer';
 
 const selectCustomerState = createFeatureSelector<State>(customerFeatureKey);
 
@@ -16,17 +16,17 @@ const selectById = (id: number) =>
 
 const selectLoadStatus = createSelector(
   selectCustomerState,
-  state => state.loadStatus
+  (state) => state.loadStatus
 );
 
 const isLoaded = createSelector(
   selectLoadStatus,
-  loadStatus => loadStatus === LoadStatus.LOADED
+  (loadStatus) => loadStatus === 'LOADED'
 );
 
 export const fromCustomer = {
   selectAll,
   selectById,
   selectLoadStatus,
-  isLoaded
+  isLoaded,
 };
