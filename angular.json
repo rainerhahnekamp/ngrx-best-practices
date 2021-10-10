@@ -1,6 +1,106 @@
 {
   "version": 1,
   "projects": {
+    "customer-data": {
+      "projectType": "library",
+      "root": "libs/customer/data",
+      "sourceRoot": "libs/customer/data/src",
+      "prefix": "eternal",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/customer/data"],
+          "options": {
+            "jestConfig": "libs/customer/data/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/customer/data/src/**/*.ts",
+              "libs/customer/data/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "customer-feature": {
+      "projectType": "library",
+      "root": "libs/customer/feature",
+      "sourceRoot": "libs/customer/feature/src",
+      "prefix": "eternal",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/customer/feature"],
+          "options": {
+            "jestConfig": "libs/customer/feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/customer/feature/src/**/*.ts",
+              "libs/customer/feature/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "customer-model": {
+      "projectType": "library",
+      "root": "libs/customer/model",
+      "sourceRoot": "libs/customer/model/src",
+      "prefix": "eternal",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/customer/model"],
+          "options": {
+            "jestConfig": "libs/customer/model/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/customer/model/src/**/*.ts",
+              "libs/customer/model/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
+    "customer-ui": {
+      "projectType": "library",
+      "root": "libs/customer/ui",
+      "sourceRoot": "libs/customer/ui/src",
+      "prefix": "eternal",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/customer/ui"],
+          "options": {
+            "jestConfig": "libs/customer/ui/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/customer/ui/src/**/*.ts",
+              "libs/customer/ui/src/**/*.html"
+            ]
+          }
+        }
+      }
+    },
     "eternal": {
       "projectType": "application",
       "root": "apps/eternal",
@@ -21,7 +121,10 @@
               "apps/eternal/src/favicon.ico",
               "apps/eternal/src/assets"
             ],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/eternal/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/eternal/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {

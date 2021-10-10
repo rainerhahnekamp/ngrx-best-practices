@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@eternal/customer/data": ["libs/customer/data/src/index.ts"],
+      "@eternal/customer/feature": ["libs/customer/feature/src/index.ts"],
+      "@eternal/customer/model": ["libs/customer/model/src/index.ts"],
+      "@eternal/customer/ui": ["libs/customer/ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

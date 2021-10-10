@@ -1,0 +1,29 @@
+<h2>Customers</h2>
+<p>
+  <a [routerLink]="['.', 'new']" color="primary" mat-raised-button
+    >Add Customer</a
+  >
+</p>
+<div>
+  <div class="row header">
+    <p class="edit">&nbsp;</p>
+    <p class="name">Name</p>
+    <p class="country">Country</p>
+    <p class="birthdate">Date of Birth</p>
+  </div>
+  <ng-container *ngIf="customers.length > 0; else noCustomers">
+    <div *ngFor="let customer of customers" class="row">
+      <p class="edit">
+        <a [routerLink]="['.', customer.id]">
+          <mat-icon>edit</mat-icon>
+        </a>
+      </p>
+      <p class="name">{{ customer.firstname }} {{ customer.name }}</p>
+      <p class="country">{{ customer.country }}</p>
+      <p class="birthdate">{{ customer.birthdate | date }}</p>
+    </div>
+  </ng-container>
+  <ng-template #noCustomers>
+    <p>We don't have any customers yet 😥</p>
+  </ng-template>
+</div>

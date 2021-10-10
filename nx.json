@@ -27,8 +27,20 @@
     ]
   },
   "projects": {
+    "customer-data": {
+      "tags": ["domain:customer", "type:data"]
+    },
+    "customer-feature": {
+      "tags": ["domain:customer", "type:feature"]
+    },
+    "customer-model": {
+      "tags": ["domain:customer", "type:model"]
+    },
+    "customer-ui": {
+      "tags": ["domain:customer", "type:ui"]
+    },
     "eternal": {
-      "tags": []
+      "tags": ["app"]
     },
     "eternal-e2e": {
       "tags": [],
