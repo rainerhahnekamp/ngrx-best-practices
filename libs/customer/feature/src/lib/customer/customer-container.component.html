@@ -1,4 +1,4 @@
-<ng-container *ngIf="loading; else spinner">
+<ng-container *ngIf="!loading; else spinner">
   <form
     (ngSubmit)="submit(customer)"
     *ngIf="customer$ | async as customer"
