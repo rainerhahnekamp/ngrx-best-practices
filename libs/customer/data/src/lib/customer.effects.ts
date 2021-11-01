@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Customer } from '@eternal/customer/model';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -14,7 +15,6 @@ import {
   withLatestFrom,
 } from 'rxjs/operators';
 import { CustomerActions } from './customer.actions';
-import { CustomerAppState } from './customer.reducer';
 import { fromCustomer } from './customer.selectors';
 
 @Injectable()
@@ -74,6 +74,7 @@ export class CustomerEffects {
     private actions$: Actions,
     private http: HttpClient,
     private router: Router,
-    private store: Store<CustomerAppState>
+    private store: Store,
+    private matSnackbar: MatSnackBarModule
   ) {}
 }

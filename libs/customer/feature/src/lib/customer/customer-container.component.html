@@ -1,23 +1,28 @@
-<form
-  [formGroup]="formGroup"
-  *ngIf="customer$ | async as customer"
-  (ngSubmit)="submit(customer)"
->
-  <formly-form
-    [form]="formGroup"
-    [fields]="fields"
-    [model]="customer"
-  ></formly-form>
-  <div class="buttons">
-    <a mat-raised-button [routerLink]="['..']">Back</a>
-    <button
-      mat-raised-button
-      color="warn"
-      type="button"
-      (click)="remove(customer)"
-    >
-      Delete
-    </button>
-    <button mat-raised-button color="primary" type="submit">Save</button>
-  </div>
-</form>
+<ng-container *ngIf="loading; else spinner">
+  <form
+    (ngSubmit)="submit(customer)"
+    *ngIf="customer$ | async as customer"
+    [formGroup]="formGroup"
+  >
+    <formly-form
+      [fields]="fields"
+      [form]="formGroup"
+      [model]="customer"
+    ></formly-form>
+    <div class="buttons">
+      <a [routerLink]="['..']" mat-raised-button>Back</a>
+      <button
+        (click)="remove(customer)"
+        color="warn"
+        mat-raised-button
+        type="button"
+      >
+        Delete
+      </button>
+      <button color="primary" mat-raised-button type="submit">Save</button>
+    </div>
+  </form>
+</ng-container>
+<ng-template #spinner>
+  <mat-spinner></mat-spinner>
+</ng-template>

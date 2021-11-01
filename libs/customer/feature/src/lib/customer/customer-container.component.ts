@@ -23,6 +23,7 @@ export class CustomerContainerComponent implements OnInit {
     formly.requiredSelect('country', 'Country', countries),
     formly.requiredDate('birthdate', 'Birthdate'),
   ];
+  loading = false;
 
   constructor(private store: Store, private route: ActivatedRoute) {}
 

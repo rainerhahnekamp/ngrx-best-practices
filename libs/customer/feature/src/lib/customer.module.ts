@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { CustomerDataModule } from '@eternal/customer/data';
 import { CustomerUiModule } from '@eternal/customer/ui';
@@ -27,6 +28,7 @@ import { MockedHttpClient } from './mocked-http-client.service';
     MatIconModule,
     MatButtonModule,
     MatDatepickerModule,
+    MatProgressSpinnerModule,
     FormlyModule.forChild(),
     FormlyMaterialModule,
     FormlyMatDatepickerModule,
