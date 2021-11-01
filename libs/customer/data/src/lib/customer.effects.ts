@@ -43,9 +43,12 @@ export class CustomerEffects {
     this.actions$.pipe(
       ofType(CustomerActions.add),
       concatMap(({ customer }) =>
-        this.http.post<Customer[]>(this.baseUrl, customer)
+        this.http.post<{ customers: Customer[]; id: number }>(
+          this.baseUrl,
+          customer
+        )
       ),
-      map((customers) => CustomerActions.added({ customers })),
+      map(({ customers }) => CustomerActions.added({ customers })),
       tap(() => this.router.navigateByUrl('/customer'))
     )
   );
