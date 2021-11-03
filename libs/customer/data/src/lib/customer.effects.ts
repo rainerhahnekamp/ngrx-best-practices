@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Customer } from '@eternal/customer/model';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { of } from 'rxjs';
+import { delay, of } from 'rxjs';
 import {
   concatMap,
   filter,
@@ -42,24 +42,27 @@ export class CustomerEffects {
   addCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.add),
-      concatMap(({ customer }) =>
-        this.http.post<{ customers: Customer[]; id: number }>(
-          this.baseUrl,
-          customer
-        )
+      concatMap(({ customer, forwardSupplier }) =>
+        this.http
+          .post<{ customers: Customer[]; id: number }>(this.baseUrl, customer)
+          .pipe(tap(({ id }) => this.router.navigateByUrl(forwardSupplier(id))))
       ),
-      map(({ customers }) => CustomerActions.added({ customers })),
-      tap(() => this.router.navigateByUrl('/customer'))
+      map(({ customers }) => CustomerActions.added({ customers }))
     )
   );
   updateCustomer$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CustomerActions.update),
-      concatMap(({ customer }) =>
-        this.http.put<Customer[]>(this.baseUrl, customer)
+      concatMap(({ customer, message, callback }) =>
+        this.http.put<Customer[]>(this.baseUrl, customer).pipe(
+          delay(2500),
+          tap(() => {
+            this.matSnackbar.open(message, 'OK');
+            callback();
+          })
+        )
       ),
-      map((customers) => CustomerActions.updated({ customers })),
-      tap(() => this.router.navigateByUrl('/customer'))
+      map((customers) => CustomerActions.updated({ customers }))
     )
   );
   removeCustomer$ = createEffect(() =>
@@ -78,6 +81,6 @@ export class CustomerEffects {
     private http: HttpClient,
     private router: Router,
     private store: Store,
-    private matSnackbar: MatSnackBarModule
+    private matSnackbar: MatSnackBar
   ) {}
 }

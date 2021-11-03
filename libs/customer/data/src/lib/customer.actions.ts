@@ -8,7 +8,10 @@ const loaded = createAction(
   props<{ customers: Customer[] }>()
 );
 
-const add = createAction('[Customer] Add', props<{ customer: Customer }>());
+const add = createAction(
+  '[Customer] Add',
+  props<{ customer: Customer; forwardSupplier: (id: number) => string }>()
+);
 const added = createAction(
   '[Customer] Added',
   props<{ customers: Customer[] }>()
@@ -16,7 +19,7 @@ const added = createAction(
 
 const update = createAction(
   '[Customer] Update',
-  props<{ customer: Customer }>()
+  props<{ customer: Customer; message: string; callback: () => void }>()
 );
 const updated = createAction(
   '[Customer] Updated',

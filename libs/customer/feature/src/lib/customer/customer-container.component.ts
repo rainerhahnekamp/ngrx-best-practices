@@ -51,9 +51,21 @@ export class CustomerContainerComponent implements OnInit {
   submit(customer: Customer) {
     if (this.formGroup.valid) {
       if (customer.id) {
-        this.store.dispatch(CustomerActions.update({ customer }));
+        this.loading = true;
+        this.store.dispatch(
+          CustomerActions.update({
+            customer,
+            message: 'Changes have been saved',
+            callback: () => (this.loading = false),
+          })
+        );
       } else {
-        this.store.dispatch(CustomerActions.add({ customer }));
+        this.store.dispatch(
+          CustomerActions.add({
+            customer,
+            forwardSupplier: (id: number) => `/customer/${id}`,
+          })
+        );
       }
     }
   }
